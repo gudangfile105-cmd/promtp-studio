@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Studio — BANNER PRO | Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
+            studio: {
+              bg: '#0b0e14',
+              card: '#131824',
+              surface: '#1a2132',
+              border: '#263044',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbar & Utility Styles */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.65);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Blueprint Grid Pattern for Live Wireframe Stage */
+    .wireframe-grid {
+      background-size: 16px 16px;
+      background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    }
+    .dark .wireframe-grid {
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    }
+
+    /* Custom Color Picker Swatch */
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 0.5rem;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.28); }
+      50% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+    }
+    .ai-glow {
+      animation: pulseGlow 2.6s infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-[#0b0e14] dark:text-slate-100 font-sans antialiased transition-colors duration-200 selection:bg-brand-500/30 selection:text-brand-400">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[70] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL PENGATURAN (#settingsModal) — Explicit style="display: none;"     -->
+  <!-- ======================================================================= -->
+  <div id="settingsModal" style="display: none;" class="fixed inset-0 z-[60] items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div id="settingsModalBackdrop" onclick="window.closeSettingsModal()" class="fixed inset-0 bg-black/75 backdrop-blur-sm"></div>
+
+    <!-- Modal Card -->
+    <div role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle" class="relative z-10 w-full max-w-md rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-200 dark:border-[#263044] flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <div>
+            <h3 id="settingsModalTitle" class="font-bold text-base">Pengaturan Studio</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Ganti logo pojok kiri atas &amp; atur API Key Gemini</p>
+          </div>
+        </div>
+        <button id="btnCloseSettingsX" onclick="window.closeSettingsModal()" type="button" aria-label="Tutup Pengaturan" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#1a2132] transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-5">
+        <!-- Bagian A: Kolom URL Gambar Logo (Pojok Kiri Atas) -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <label for="inputLogoUrl" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+              URL Gambar Logo (Pojok Kiri Atas)
+            </label>
+            <button id="btnResetLogoDefault" onclick="window.resetLogoToDefault()" type="button" class="px-2 py-0.5 rounded text-[11px] font-bold text-brand-600 dark:text-brand-400 hover:bg-brand-500/15 transition cursor-pointer">
+              Reset Default
+            </button>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- Kotak Pratinjau Langsung 44x44px -->
+            <div id="settingsLogoPreviewBox" class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-md shrink-0 overflow-hidden border border-slate-200 dark:border-[#263044]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2.5" />
+                <path stroke-linecap="round" d="M7 9h6M7 13h4" />
+                <circle cx="16.5" cy="12" r="2" />
+              </svg>
+            </div>
+
+            <input
+              id="inputLogoUrl"
+              type="url"
+              oninput="window.previewSettingsLogo(this.value)"
+              placeholder="https://domain-anda.com/logo.png"
+              class="flex-1 min-w-0 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition"
+            />
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">
+            Tempel URL langsung gambar logo yang sudah dihosting (PNG, JPG, WEBP, SVG). Klik <strong>Reset Default</strong> untuk kembali ke ikon bawaan.
+          </p>
+        </div>
+
+        <!-- Bagian B: Kolom Isian API Key Gemini -->
+        <div class="space-y-2 pt-3 border-t border-slate-200 dark:border-[#263044]">
+          <div class="flex items-center justify-between gap-2">
+            <label for="inputGeminiApiKey" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+              API Key Gemini
+            </label>
+            <span id="settingsApiStatusText" class="text-[11px] font-mono text-slate-400">Belum diatur</span>
+          </div>
+
+          <div class="relative flex items-center">
+            <input
+              id="inputGeminiApiKey"
+              type="password"
+              autocomplete="off"
+              placeholder="Masukkan Gemini API Key (AIzaSy...)"
+              class="w-full pl-3.5 pr-11 py-2.5 rounded-xl font-mono text-xs sm:text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition"
+            />
+            <button
+              id="btnToggleApiKeyVis"
+              onclick="window.toggleApiKeyVisibility()"
+              type="button"
+              aria-label="Tampilkan atau Sembunyikan API Key"
+              class="absolute right-2 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#131824] transition cursor-pointer"
+            >
+              <svg id="iconEyeOpen" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg id="iconEyeClosed" style="display: none;" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+            Disimpan aman di <code class="font-mono text-brand-500">localStorage</code> browser Anda untuk mengaktifkan <strong>AI Smart Brief</strong>, <strong>Ide Headline AI</strong>, dan <strong>Poles AI</strong> (<code class="font-mono">gemini-2.5-flash</code>).
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-4 bg-slate-50/70 dark:bg-[#0b0e14]/70 border-t border-slate-200 dark:border-[#263044] flex items-center justify-end gap-2.5">
+        <button id="btnCancelSettings" onclick="window.closeSettingsModal()" type="button" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-[#1a2132] transition cursor-pointer">
+          Batal
+        </button>
+        <button id="btnSaveSettings" onclick="window.saveSettings()" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 shadow-md shadow-brand-500/20 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Save</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- IMAGE LIGHTBOX MODAL (Preview Besar Foto Referensi)                     -->
+  <!-- ======================================================================= -->
+  <div id="imageLightboxModal" style="display: none;" class="fixed inset-0 z-[60] items-center justify-center p-4">
+    <div id="lightboxBackdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="relative z-10 max-w-2xl w-full rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] shadow-2xl overflow-hidden">
+      <div class="px-4 py-3 border-b border-slate-200 dark:border-[#263044] flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 min-w-0">
+          <span id="lightbox-index-badge" class="px-2 py-0.5 rounded-md font-mono text-xs font-bold bg-brand-500 text-slate-950 shrink-0">Foto #1</span>
+          <span id="lightbox-role-badge" class="px-2 py-0.5 rounded-md text-xs font-semibold bg-brand-500/15 text-brand-500 border border-brand-500/30 shrink-0">Foto Produk</span>
+          <span id="lightbox-filename" class="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">referensi.jpg</span>
+        </div>
+        <button id="close-lightbox-btn" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="bg-black/40 p-4 flex items-center justify-center max-h-[68vh] overflow-auto">
+        <img id="lightbox-img" src="" alt="Preview Referensi Foto" class="max-h-[60vh] w-auto rounded-xl object-contain shadow-lg" />
+      </div>
+      <div class="px-4 py-3 border-t border-slate-200 dark:border-[#263044] flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="text-slate-600 dark:text-slate-300">
+          <span class="font-semibold text-brand-500">Instruksi Penempatan:</span>
+          <span id="lightbox-note">-</span>
+        </div>
+        <span id="lightbox-dim" class="font-mono text-slate-400">0×0 px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- SLIDE-OVER HISTORY DRAWER (#historyDrawer)                              -->
+  <!-- ======================================================================= -->
+  <div id="historyDrawer" style="display: none;" class="fixed inset-0 z-[55]">
+    <div id="history-backdrop" class="fixed inset-0 bg-black/65 backdrop-blur-sm transition-opacity"></div>
+    <div class="fixed inset-y-0 right-0 max-w-md w-full bg-white dark:bg-[#131824] border-l border-slate-200 dark:border-[#263044] shadow-2xl flex flex-col z-10">
+      <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-[#263044] flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-base">Riwayat Prompt Tersimpan</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Tersimpan di localStorage browser Anda</p>
+          </div>
+        </div>
+        <button id="close-history-btn" type="button" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-[#1a2132] transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="history-list" class="flex-1 overflow-y-auto p-4 space-y-3">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <div class="p-4 border-t border-slate-200 dark:border-[#263044] flex items-center justify-between gap-3">
+        <span id="history-count-label" class="text-xs font-mono text-slate-500 dark:text-slate-400">0 item</span>
+        <button id="clear-history-btn" type="button" class="px-3 py-2 text-xs font-semibold rounded-lg text-red-500 hover:bg-red-500/10 transition cursor-pointer">
+          Hapus Semua Riwayat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- TOP STICKY HEADER                                                       -->
+  <!-- ======================================================================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-[#0b0e14]/90 backdrop-blur-md border-b border-slate-200 dark:border-[#263044]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
+      <div class="h-16 flex items-center justify-between gap-3">
+        <!-- Kiri: #brandLogoContainer -->
+        <div id="brandLogoContainer" class="flex items-center gap-3 shrink-0 min-w-0">
+          <div id="brandLogoBox" class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20 overflow-hidden shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="14" rx="2.5" />
+              <path stroke-linecap="round" d="M7 9h6M7 13h4" />
+              <circle cx="16.5" cy="12" r="2" />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-base sm:text-lg tracking-tight truncate">Prompt Studio</span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 shrink-0">
+                BANNER PRO
+              </span>
+            </div>
+            <p class="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI
+            </p>
+          </div>
+        </div>
+
+        <!-- Kanan Header (Urut Kiri -> Kanan): Pengaturan, Riwayat, Toggle Theme -->
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- 1) Tombol Pengaturan (Sebelah Kiri Tombol Riwayat) -->
+          <button
+            id="btnOpenSettings"
+            onclick="window.openSettingsModal()"
+            type="button"
+            title="Pengaturan Logo & API Key Gemini"
+            class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-[#131824] dark:hover:bg-[#1a2132] border border-slate-200 dark:border-[#263044] transition cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <span>Pengaturan</span>
+            <span id="settingsApiBadge" style="display: none;" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="API Key Gemini Tersimpan"></span>
+          </button>
+
+          <!-- 2) Tombol Riwayat -->
+          <button
+            id="btnOpenHistory"
+            type="button"
+            class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-[#131824] dark:hover:bg-[#1a2132] border border-slate-200 dark:border-[#263044] transition cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Riwayat</span>
+            <span id="history-badge" class="px-1.5 py-0.2 text-[11px] font-mono font-bold rounded-full bg-brand-500 text-slate-950">0</span>
+          </button>
+
+          <!-- 3) Tombol Toggle Dark/Light Mode -->
+          <button
+            id="btnThemeToggle"
+            type="button"
+            aria-label="Ganti Tema Terang/Gelap"
+            class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-[#131824] dark:hover:bg-[#1a2132] border border-slate-200 dark:border-[#263044] text-slate-700 dark:text-slate-200 transition cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-brand-400 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg class="w-4 h-4 text-slate-700 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bar PRESET CEPAT -->
+      <div class="py-2.5 border-t border-slate-200/70 dark:border-[#263044]/80 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0 mr-1 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+          PRESET CEPAT:
+        </span>
+        <button type="button" data-quick-preset="warung" class="quick-preset-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-brand-500/15 hover:text-brand-600 dark:bg-[#131824] dark:hover:bg-brand-500/20 dark:hover:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+          🏪 Spanduk Warung / Toko
+        </button>
+        <button type="button" data-quick-preset="sosmed" class="quick-preset-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-brand-500/15 hover:text-brand-600 dark:bg-[#131824] dark:hover:bg-brand-500/20 dark:hover:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+          📱 Banner Promo Sosmed 1:1
+        </button>
+        <button type="button" data-quick-preset="webhero" class="quick-preset-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-brand-500/15 hover:text-brand-600 dark:bg-[#131824] dark:hover:bg-brand-500/20 dark:hover:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+          🖥️ Web Hero 16:9
+        </button>
+        <button type="button" data-quick-preset="tiktok" class="quick-preset-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-brand-500/15 hover:text-brand-600 dark:bg-[#131824] dark:hover:bg-brand-500/20 dark:hover:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+          🎬 Story / TikTok 9:16
+        </button>
+        <button type="button" data-quick-preset="xbanner" class="quick-preset-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-brand-500/15 hover:text-brand-600 dark:bg-[#131824] dark:hover:bg-brand-500/20 dark:hover:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+          🎪 X-Banner Event / Seminar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================= -->
+  <!-- MAIN WORKSPACE                                                          -->
+  <!-- ======================================================================= -->
+  <main class="max-w-[1440px] mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- AI SMART BRIEF — Auto-Isi dari Konsep Singkat -->
+    <section class="rounded-2xl bg-gradient-to-r from-brand-500/10 via-white to-brand-500/5 dark:from-brand-500/15 dark:via-[#131824] dark:to-[#131824] border border-brand-500/30 p-4 sm:p-5 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <div class="lg:w-72 shrink-0">
+          <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+            AI SMART BRIEF
+          </div>
+          <h2 class="text-sm sm:text-base font-bold">Auto-Isi dari Konsep Singkat</h2>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+            Ketik 1 kalimat ide banner, Gemini AI akan melengkapi seluruh form secara otomatis.
+          </p>
+        </div>
+
+        <div class="flex-1 flex flex-col sm:flex-row gap-2.5">
+          <input
+            id="smart-brief-input"
+            type="text"
+            placeholder="Contoh: Spanduk warung bakso mercon 4x1 meter warna merah kuning pedas nampol diskon 50%..."
+            class="flex-1 px-4 py-3 rounded-xl text-sm bg-white dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition"
+          />
+          <button
+            id="smart-brief-btn"
+            type="button"
+            class="ai-glow shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 shadow-md shadow-brand-500/20 transition cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span id="smart-brief-btn-text">Auto-Isi dari Brief</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Contoh Ide Cepat -->
+      <div class="mt-3 pt-3 border-t border-slate-200/60 dark:border-[#263044]/60 flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-slate-500 dark:text-slate-400 font-medium">Coba contoh ide:</span>
+        <button type="button" data-brief-example="Spanduk warung ayam geprek sambal bawang 400x100 cm gratis es teh merah kuning" class="brief-example-chip px-2.5 py-1 rounded-lg bg-white/80 dark:bg-[#1a2132] hover:border-brand-500 border border-slate-200 dark:border-[#263044] text-slate-700 dark:text-slate-300 transition cursor-pointer">
+          "Spanduk Warung Ayam Geprek..."
+        </button>
+        <button type="button" data-brief-example="Story TikTok 9:16 flash sale skincare glowing diskon 50% aesthetic pink emas" class="brief-example-chip px-2.5 py-1 rounded-lg bg-white/80 dark:bg-[#1a2132] hover:border-brand-500 border border-slate-200 dark:border-[#263044] text-slate-700 dark:text-slate-300 transition cursor-pointer">
+          "Story TikTok Flash Sale Skincare..."
+        </button>
+        <button type="button" data-brief-example="X-Banner event seminar bisnis digital & AI 60x160 cm modern biru navy emas" class="brief-example-chip px-2.5 py-1 rounded-lg bg-white/80 dark:bg-[#1a2132] hover:border-brand-500 border border-slate-200 dark:border-[#263044] text-slate-700 dark:text-slate-300 transition cursor-pointer">
+          "X-Banner Seminar Bisnis AI..."
+        </button>
+      </div>
+    </section>
+
+    <!-- Main 2-Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- =================================================================== -->
+      <!-- LEFT COLUMN: Form Konfigurasi (7 Cols)                              -->
+      <!-- =================================================================== -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- CARD 01 — Ukuran & Format Media Banner -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-[#263044] pb-3.5">
+            <div class="flex items-center gap-3">
+              <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">01</span>
+              <div>
+                <h3 class="font-bold text-base">Ukuran &amp; Format Media Banner</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Pilih dimensi media cetak/digital dan target AI generator</p>
+              </div>
+            </div>
+            <span id="header-ratio-pill" class="px-2.5 py-1 rounded-lg font-mono text-xs font-bold bg-slate-100 dark:bg-[#1a2132] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#263044]">
+              4:1 (400×100 cm)
+            </span>
+          </div>
+
+          <!-- PRESET UKURAN BANNER -->
+          <div>
+            <label for="size-preset" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
+              PRESET UKURAN BANNER
+            </label>
+            <select id="size-preset" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+              <option value="400x100">Spanduk Standar — 400 × 100 cm [Rasio 4:1]</option>
+              <option value="400x50">Spanduk Panjang / Listplank — 400 × 50 cm [Rasio 8:1]</option>
+              <option value="300x100">Spanduk Medium — 300 × 100 cm [Rasio 3:1]</option>
+              <option value="60x160">X-Banner / Roll-Up Banner — 60 × 160 cm [Rasio 3:8]</option>
+              <option value="300x400">Baliho / Billboard Vertikal — 300 × 400 cm [Rasio 3:4]</option>
+              <option value="1:1">Poster / Feed Instagram — 1080 × 1080 px [Rasio 1:1]</option>
+              <option value="16:9">Web Hero / YouTube Banner — 1920 × 1080 px [Rasio 16:9]</option>
+              <option value="9:16">Story / TikTok / Reels — 1080 × 1920 px [Rasio 9:16]</option>
+              <option value="custom">Custom Ukuran (Input Lebar &amp; Tinggi Manual)</option>
+            </select>
+          </div>
+
+          <!-- Custom Size Panel -->
+          <div id="custom-size-panel" style="display: none;" class="p-4 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-brand-500/40 space-y-3">
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label for="custom-width" class="block text-xs font-semibold mb-1 text-slate-600 dark:text-slate-300">Lebar</label>
+                <input id="custom-width" type="number" min="1" value="500" class="w-full px-3 py-2.5 rounded-lg text-sm font-mono bg-white dark:bg-[#131824] border border-slate-300 dark:border-[#263044] focus:outline-none focus:border-brand-500" />
+              </div>
+              <div>
+                <label for="custom-height" class="block text-xs font-semibold mb-1 text-slate-600 dark:text-slate-300">Tinggi</label>
+                <input id="custom-height" type="number" min="1" value="150" class="w-full px-3 py-2.5 rounded-lg text-sm font-mono bg-white dark:bg-[#131824] border border-slate-300 dark:border-[#263044] focus:outline-none focus:border-brand-500" />
+              </div>
+              <div>
+                <label for="custom-unit" class="block text-xs font-semibold mb-1 text-slate-600 dark:text-slate-300">Satuan</label>
+                <select id="custom-unit" class="w-full px-3 py-2.5 rounded-lg text-sm font-mono bg-white dark:bg-[#131824] border border-slate-300 dark:border-[#263044] focus:outline-none focus:border-brand-500">
+                  <option value="cm">cm</option>
+                  <option value="px">px</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-200 dark:border-[#263044]">
+              <span class="text-slate-500 dark:text-slate-400">Rasio Aspek Otomatis:</span>
+              <span id="custom-ratio-display" class="font-mono font-bold text-brand-500">10:3</span>
+            </div>
+          </div>
+
+          <!-- Platform AI Target -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
+              Platform AI Target
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="ai-platform-group">
+              <button type="button" data-ai-platform="chatgpt" class="ai-platform-card text-left p-3 rounded-xl border-2 border-brand-500 bg-brand-500/10 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm">ChatGPT / GPT-4o Image</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-brand-500 indicator"></span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Akurasi teks Bahasa Indonesia &amp; integrasi foto referensi tinggi.</p>
+              </button>
+
+              <button type="button" data-ai-platform="gemini" class="ai-platform-card text-left p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm">Gemini / Imagen 3</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 indicator"></span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Fotografi produk natural &amp; multi-image blending presisi.</p>
+              </button>
+
+              <button type="button" data-ai-platform="ideogram" class="ai-platform-card text-left p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm">Ideogram 2.0</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 indicator"></span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Spesialis poster &amp; tipografi dekoratif anti-typo.</p>
+              </button>
+
+              <button type="button" data-ai-platform="midjourney" class="ai-platform-card text-left p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm">Midjourney v6</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 indicator"></span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Otomatis menyertakan parameter <code class="font-mono text-brand-500">--ar</code> &amp; <code class="font-mono text-brand-500">--v 6.0</code>.</p>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CARD 02 — Konten Teks & Hirarki Informasi -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
+          <div class="flex items-center gap-3 border-b border-slate-200 dark:border-[#263044] pb-3.5">
+            <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">02</span>
+            <div>
+              <h3 class="font-bold text-base">Konten Teks &amp; Hirarki Informasi</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Susun hirarki teks utama, sub-headline, detail promo/harga, dan kontak</p>
+            </div>
+          </div>
+
+          <!-- Headline Utama + Ide Headline AI -->
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <label for="headline-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                Headline Utama
+              </label>
+              <button id="ai-headline-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-brand-500/15 hover:bg-brand-500/25 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                </svg>
+                <span id="ai-headline-btn-text">Ide Headline AI</span>
+              </button>
+            </div>
+            <input id="headline-input" type="text" value="AYAM GEPREK JUARA — PEDASNYA BIKIN NAGIH!" placeholder="Tulis judul paling mencolok..." class="w-full px-3.5 py-3 rounded-xl text-sm font-bold bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
+
+            <!-- AI Headline Suggestions Container -->
+            <div id="headline-suggestions-box" style="display: none;" class="mt-2.5 p-3 rounded-xl bg-brand-500/10 border border-brand-500/30 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono font-bold text-brand-600 dark:text-brand-400">PILIH REKOMENDASI HEADLINE AI:</span>
+                <button id="close-headline-suggestions" type="button" class="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">Tutup</button>
+              </div>
+              <div id="headline-suggestions-list" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+
+          <!-- Sub-Headline / Tagline -->
+          <div>
+            <label for="subheadline-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Sub-Headline / Tagline
+            </label>
+            <input id="subheadline-input" type="text" value="Sambal Bawang Ulek Dadakan • Paket Hemat Mulai Rp 15.000" placeholder="Contoh: Diskon Spesial Akhir Pekan Hingga 50%" class="w-full px-3.5 py-3 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Detail Promo / Harga / Badge CTA -->
+            <div>
+              <label for="cta-badge-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+                Detail Promo / Harga / CTA
+              </label>
+              <input id="cta-badge-input" type="text" value="GRATIS ES TEH MANIS!" placeholder="Contoh: PESAN SEKARANG • DISKON 50%" class="w-full px-3.5 py-3 rounded-xl text-sm font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
+            </div>
+
+            <!-- Info Kontak / Alamat / Akun Sosmed -->
+            <div>
+              <label for="contact-info-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+                Info Kontak / Alamat / Sosmed
+              </label>
+              <input id="contact-info-input" type="text" value="WA: 0812-3456-7890 • Jl. Raya Merdeka No. 45 • @ayamgeprekjuara" placeholder="Contoh: WA: 0812-xxxx • IG: @brandanda" class="w-full px-3.5 py-3 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
+            </div>
+          </div>
+        </section>
+
+        <!-- CARD 03 — Gaya Visual, Tipografi & Komposisi -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
+          <div class="flex items-center gap-3 border-b border-slate-200 dark:border-[#263044] pb-3.5">
+            <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">03</span>
+            <div>
+              <h3 class="font-bold text-base">Gaya Visual, Tipografi &amp; Komposisi</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Atur arah artistik, karakter huruf, foto referensi, dan tata letak</p>
+            </div>
+          </div>
+
+          <!-- GAYA DESAIN -->
+          <div>
+            <label for="design-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              GAYA DESAIN
+            </label>
+            <select id="design-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+              <option value="Bold Kuliner Menggugah Selera">Bold Kuliner Menggugah Selera</option>
+              <option value="Modern Minimalis Korporat">Modern Minimalis Korporat</option>
+              <option value="Festive Promo & Diskon Retail">Festive Promo &amp; Diskon Retail</option>
+              <option value="Elegan Mewah & Eksklusif">Elegan Mewah &amp; Eksklusif</option>
+              <option value="Enerjik Sport & Event">Enerjik Sport &amp; Event</option>
+              <option value="Islami / Religi & Komunitas">Islami / Religi &amp; Komunitas</option>
+              <option value="3D Render & Futuristik">3D Render &amp; Futuristik</option>
+              <option value="Ilustrasi Vektor Flat & Playful">Ilustrasi Vektor Flat &amp; Playful</option>
+            </select>
+          </div>
+
+          <!-- GAYA TIPOGRAFI -->
+          <div>
+            <label for="typography-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              GAYA TIPOGRAFI
+            </label>
+            <select id="typography-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+              <option value="Bold Impact Sans-Serif">Bold Impact Sans-Serif</option>
+              <option value="Modern Geometric Clean">Modern Geometric Clean</option>
+              <option value="Elegant Luxury Serif">Elegant Luxury Serif</option>
+              <option value="Handwritten / Brush Script">Handwritten / Brush Script</option>
+              <option value="3D Extruded & Metallic Promo">3D Extruded &amp; Metallic Promo</option>
+              <option value="Playful Rounded Display">Playful Rounded Display</option>
+            </select>
+          </div>
+
+          <!-- MULTI-UPLOAD REFERENSI FOTO (Tepat di bawah Gaya Tipografi) -->
+          <div class="pt-1 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                  REFERENSI FOTO (ORANG / PRODUK / LOGO / DLL)
+                </label>
+                <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30">
+                  MULTI-UPLOAD
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button id="add-more-photos-btn" style="display: none;" type="button" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-brand-500/15 hover:bg-brand-500/25 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition cursor-pointer">
+                  + Tambah Foto Lagi
+                </button>
+                <button id="clear-all-photos-btn" style="display: none;" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-red-500 hover:bg-red-500/10 transition cursor-pointer">
+                  Hapus Semua
+                </button>
+              </div>
+            </div>
+
+            <input id="reference-photo-input" type="file" accept="image/*" multiple class="hidden" />
+
+            <!-- Drag & Drop Upload Zone -->
+            <div
+              id="photo-dropzone"
+              tabindex="0"
+              role="button"
+              aria-label="Unggah referensi foto orang, produk, atau logo"
+              class="group rounded-xl border-2 border-dashed border-slate-300 dark:border-[#263044] hover:border-brand-500 dark:hover:border-brand-500 bg-slate-50/80 dark:bg-[#1a2132]/70 hover:bg-brand-500/5 p-4 sm:p-5 text-center transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500/50"
+            >
+              <div class="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-500 mx-auto flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200">
+                Seret &amp; lepas foto ke sini, atau <span class="text-brand-600 dark:text-brand-400 underline">Pilih File Gambar</span>
+              </p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                Dapat mengunggah banyak foto sekaligus (Foto Orang/Model, Foto Produk, Logo Brand, Kemasan, Background)
+              </p>
+            </div>
+
+            <!-- Uploaded Reference Photos List -->
+            <div id="uploaded-photos-list" style="display: none;" class="space-y-3"></div>
+          </div>
+
+          <!-- KOMPOSISI TATA LETAK (Visual Grid) -->
+          <div class="pt-1">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
+              KOMPOSISI TATA LETAK
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="layout-composition-group">
+              <button type="button" data-layout="Panoramic Strip Spanduk" class="layout-card p-3 rounded-xl border-2 border-brand-500 bg-brand-500/10 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 flex items-center gap-1 mb-2">
+                  <div class="w-1/4 h-full rounded-sm bg-brand-500/70"></div>
+                  <div class="w-2/4 h-full rounded-sm bg-slate-400/45"></div>
+                  <div class="w-1/4 h-full rounded-sm bg-brand-500/45"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Panoramic Strip Spanduk</div>
+              </button>
+
+              <button type="button" data-layout="Split Kiri-Kanan" class="layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 flex items-center gap-1 mb-2">
+                  <div class="w-1/2 h-full rounded-sm bg-slate-400/45"></div>
+                  <div class="w-1/2 h-full rounded-sm bg-brand-500/70"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Split Kiri-Kanan</div>
+              </button>
+
+              <button type="button" data-layout="Center Hero Focus" class="layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 flex flex-col items-center justify-center gap-0.5 mb-2">
+                  <div class="w-2/3 h-2 rounded-sm bg-slate-400/50"></div>
+                  <div class="w-2/5 h-3 rounded-sm bg-brand-500/70"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Center Hero Focus</div>
+              </button>
+
+              <button type="button" data-layout="Top-to-Bottom X-Banner" class="layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 flex flex-col justify-between gap-0.5 mb-2">
+                  <div class="w-full h-2 rounded-sm bg-slate-400/50"></div>
+                  <div class="w-full h-3 rounded-sm bg-brand-500/70"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Top-to-Bottom X-Banner</div>
+              </button>
+
+              <button type="button" data-layout="Grid Katalog Multi-Produk" class="layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 grid grid-cols-3 gap-1 mb-2">
+                  <div class="rounded-sm bg-brand-500/60"></div>
+                  <div class="rounded-sm bg-brand-500/60"></div>
+                  <div class="rounded-sm bg-brand-500/60"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Grid Katalog Multi-Produk</div>
+              </button>
+
+              <button type="button" data-layout="Asymmetric Dynamic Diagonal" class="layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer">
+                <div class="h-8 w-full rounded bg-slate-200 dark:bg-[#0b0e14] p-1 relative overflow-hidden flex items-center justify-between mb-2">
+                  <div class="w-3/5 h-full rounded-sm bg-slate-400/45 -skew-x-12"></div>
+                  <div class="w-2/5 h-full rounded-sm bg-brand-500/70 -skew-x-12"></div>
+                </div>
+                <div class="font-bold text-xs leading-snug">Asymmetric Dynamic Diagonal</div>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CARD 04 — Palet Warna, Objek Hero & Mode Coretan -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
+          <div class="flex items-center gap-3 border-b border-slate-200 dark:border-[#263044] pb-3.5">
+            <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">04</span>
+            <div>
+              <h3 class="font-bold text-base">Palet Warna, Objek Hero &amp; Mode Coretan</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Kombinasi warna kontras tinggi, objek utama/background, dan sketch mode</p>
+            </div>
+          </div>
+
+          <!-- Preset Palet Warna -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
+              Preset Palet Warna
+            </label>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" data-palette="#dc2626,#facc15,#18181b" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                <span class="flex -space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#dc2626] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#facc15] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#18181b] ring-1 ring-white/40"></span>
+                </span>
+                Merah Pedas &amp; Kuning
+              </button>
+
+              <button type="button" data-palette="#f59e0b,#ffffff,#0f172a" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                <span class="flex -space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#f59e0b] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#ffffff] ring-1 ring-slate-400"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#0f172a] ring-1 ring-white/40"></span>
+                </span>
+                Emas Mewah &amp; Navy
+              </button>
+
+              <button type="button" data-palette="#2563eb,#38bdf8,#0b1120" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                <span class="flex -space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#2563eb] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#38bdf8] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#0b1120] ring-1 ring-white/40"></span>
+                </span>
+                Biru Korporat Modern
+              </button>
+
+              <button type="button" data-palette="#10b981,#fbbf24,#064e3b" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                <span class="flex -space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#10b981] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#fbbf24] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#064e3b] ring-1 ring-white/40"></span>
+                </span>
+                Zamrud Islami
+              </button>
+
+              <button type="button" data-palette="#ec4899,#facc15,#4c1d95" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                <span class="flex -space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#ec4899] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#facc15] ring-1 ring-white/40"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-[#4c1d95] ring-1 ring-white/40"></span>
+                </span>
+                Vibrant TikTok Promo
+              </button>
+            </div>
+          </div>
+
+          <!-- 3 Color Pickers -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Utama</label>
+              <div class="flex items-center gap-2.5">
+                <input id="color-primary" type="color" value="#dc2626" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                <div class="min-w-0 flex-1">
+                  <input id="color-primary-hex" type="text" value="#DC2626" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                  <p id="color-primary-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Merah Cerah Menyala</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Aksen</label>
+              <div class="flex items-center gap-2.5">
+                <input id="color-accent" type="color" value="#facc15" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                <div class="min-w-0 flex-1">
+                  <input id="color-accent-hex" type="text" value="#FACC15" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                  <p id="color-accent-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Kuning Emas Cerah</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Latar</label>
+              <div class="flex items-center gap-2.5">
+                <input id="color-bg" type="color" value="#18181b" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                <div class="min-w-0 flex-1">
+                  <input id="color-bg-hex" type="text" value="#18181B" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                  <p id="color-bg-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Hitam Pekat</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deskripsi Objek Utama / Background -->
+          <div>
+            <label for="visual-object" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Deskripsi Objek Utama / Hero &amp; Background
+            </label>
+            <textarea id="visual-object" rows="3" placeholder="Contoh: Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal cabai rawit merah melimpah..." class="w-full px-3.5 py-2.5 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal bawang cabai rawit merah segar melimpah, lalapan timun, dan kepulan asap hangat, foto food photography komersial profesional.</textarea>
+          </div>
+
+          <!-- Pencahayaan & Suasana -->
+          <div>
+            <label for="lighting-mood" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Pencahayaan &amp; Suasana
+            </label>
+            <select id="lighting-mood" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+              <option value="Studio Komersial Terang & Tajam">Studio Komersial Terang &amp; Tajam</option>
+              <option value="Dramatis Rim Light & Kontras Tinggi">Dramatis Rim Light &amp; Kontras Tinggi</option>
+              <option value="Hangat Golden Hour & Menggugah Selera">Hangat Golden Hour &amp; Menggugah Selera</option>
+              <option value="Neon Nightlife & Sorot Panggung">Neon Nightlife &amp; Sorot Panggung</option>
+              <option value="Soft Daylight Bersih & Natural">Soft Daylight Bersih &amp; Natural</option>
+            </select>
+          </div>
+
+          <!-- Toggle Mode Coretan / Sketch-to-Banner -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex items-center justify-between gap-4">
+            <div class="flex items-start gap-3">
+              <div class="p-2 rounded-lg bg-brand-500/15 text-brand-500 mt-0.5 shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </div>
+              <div>
+                <label for="sketch-mode-toggle" class="font-bold text-sm cursor-pointer">Mode Coretan / Sketch-to-Banner</label>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Tambahkan instruksi transformasi sketsa kasar/wireframe gambar menjadi desain banner final profesional.
+                </p>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+              <input id="sketch-mode-toggle" type="checkbox" class="sr-only peer" />
+              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-500"></div>
+            </label>
+          </div>
+        </section>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- RIGHT COLUMN: Sticky Live Preview & Output Prompt (5 Cols)          -->
+      <!-- =================================================================== -->
+      <div class="lg:col-span-5 lg:sticky lg:top-[116px] space-y-6">
+
+        <!-- 1. LIVE LAYOUT WIREFRAME PREVIEW -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-4 sm:p-5 shadow-sm space-y-3.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h3 class="font-bold text-sm">Live Layout Wireframe Preview</h3>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[11px]">
+              <span id="wireframe-dim-badge" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#1a2132] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[#263044]">400×100 cm</span>
+              <span id="wireframe-ratio-badge" class="px-2 py-0.5 rounded bg-brand-500/15 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/30">4:1</span>
+              <span id="wireframe-sketch-badge" style="display: none;" class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 font-bold border border-purple-500/30">SKETCH</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Aspect-Ratio Canvas Stage -->
+          <div class="w-full min-h-[210px] max-h-[340px] rounded-xl bg-slate-100 dark:bg-[#0b0e14] wireframe-grid border border-slate-200 dark:border-[#263044] p-4 flex items-center justify-center overflow-hidden">
+            <div
+              id="wireframe-canvas"
+              style="aspect-ratio: 4 / 1; width: 100%; background: linear-gradient(135deg, #dc2626 0%, #18181b 100%);"
+              class="relative rounded-lg shadow-xl border border-white/20 overflow-hidden transition-all duration-300 flex flex-col justify-between p-3 text-white"
+            >
+              <!-- Populated dynamically via renderWireframe() -->
+            </div>
+          </div>
+
+          <!-- Palette Strip & Layout Info -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
+            <div class="flex items-center gap-2" id="wireframe-palette-strip"></div>
+            <span id="wireframe-layout-label" class="font-mono text-slate-500 dark:text-slate-400">
+              Layout: Panoramic Strip Spanduk
+            </span>
+          </div>
+        </section>
+
+        <!-- 2. REFERENSI FOTO TERLAMPIR -->
+        <section id="output-attached-photos-section" style="display: none;" class="rounded-2xl bg-white dark:bg-[#131824] border border-brand-500/35 p-4 sm:p-5 shadow-sm space-y-3.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Referensi Foto Terlampir</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">Lampirkan foto-foto ini bersama prompt di AI Generator</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span id="attached-photos-count-badge" class="px-2 py-0.5 rounded-md font-mono text-[11px] font-bold bg-brand-500 text-slate-950">0 Foto</span>
+              <button id="copy-ref-list-btn" type="button" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-brand-500/20 dark:bg-[#1a2132] text-slate-700 dark:text-brand-400 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+                Salin Daftar
+              </button>
+            </div>
+          </div>
+
+          <div id="output-attached-photos-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+        </section>
+
+        <!-- 3. OUTPUT PROMPT GENERATOR CARD -->
+        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-4 sm:p-5 shadow-sm space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-sm sm:text-base">Hasil Output Prompt</h3>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Ter-update real-time dengan seluruh form &amp; foto referensi</p>
+            </div>
+            <span id="polished-badge" style="display: none;" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-brand-500/20 text-brand-400 border border-brand-500/40">
+              ✨ AI POLISHED
+            </span>
+          </div>
+
+          <!-- 3 Output Tabs -->
+          <div class="grid grid-cols-3 gap-1 p-1 rounded-xl bg-slate-100 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+            <button type="button" data-output-tab="en" class="output-tab-btn py-2 px-2 rounded-lg text-xs font-bold bg-white dark:bg-[#131824] text-brand-600 dark:text-brand-400 shadow-sm transition cursor-pointer">
+              Prompt Master (EN)
+            </button>
+            <button type="button" data-output-tab="id" class="output-tab-btn py-2 px-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer">
+              Prompt Indonesia (ID)
+            </button>
+            <button type="button" data-output-tab="json" class="output-tab-btn py-2 px-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer">
+              JSON Terstruktur
+            </button>
+          </div>
+
+          <!-- Output Textarea -->
+          <div>
+            <textarea
+              id="prompt-output-area"
+              readonly
+              rows="12"
+              class="w-full p-3.5 rounded-xl font-mono text-xs leading-relaxed bg-slate-50 dark:bg-[#0b0e14] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#263044] focus:outline-none focus:border-brand-500 resize-y"
+            ></textarea>
+            <div class="mt-1.5 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span id="char-count-label">0 karakter</span>
+              <button id="revert-polish-btn" style="display: none;" type="button" class="text-brand-500 hover:underline font-sans font-semibold cursor-pointer">
+                Kembalikan ke Versi Standar
+              </button>
+            </div>
+          </div>
+
+          <!-- Primary Action Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button id="copy-prompt-btn" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 shadow-md shadow-brand-500/20 transition cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+              </svg>
+              <span id="copy-btn-text">Salin</span>
+            </button>
+
+            <button id="polish-prompt-btn" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 dark:bg-[#1a2132] dark:hover:bg-[#232c42] text-brand-400 border border-brand-500/40 transition cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+              </svg>
+              <span id="polish-btn-text">Poles AI</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <button id="download-txt-btn" type="button" class="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-[#1a2132] dark:hover:bg-[#232c42] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+              <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Unduh .TXT
+            </button>
+
+            <button id="save-history-btn" type="button" class="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-[#1a2132] dark:hover:bg-[#232c42] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#263044] transition cursor-pointer">
+              <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              Simpan Riwayat
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 mt-6 border-t border-slate-200 dark:border-[#263044] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+    <div class="flex items-center gap-2">
+      <span class="font-bold text-slate-700 dark:text-slate-200">Prompt Studio — BANNER PRO</span>
+      <span>•</span>
+      <span>Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI</span>
+    </div>
+    <div class="font-mono text-[11px]">
+      Kompatibel: GPT-4o Image • Gemini / Imagen 3 • Ideogram 2.0 • Midjourney v6
+    </div>
+  </footer>
+
+  <!-- ======================================================================= -->
+  <!-- MAIN JAVASCRIPT APPLICATION                                             -->
+  <!-- ======================================================================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      // =========================================================================
+      // 1. STORAGE KEYS & DEFAULT LOGO SVG MARKUP
+      // =========================================================================
+      const STORAGE_KEYS = {
+        LOGO_URL: 'prompt_studio_logo_url',
+        GEMINI_API_KEY: 'prompt_studio_gemini_api_key',
+        HISTORY: 'prompt_studio_banner_pro_history_v1',
+        THEME: 'prompt_studio_banner_pro_theme_v1'
+      };
+
+      const GEMINI_MODEL = 'gemini-2.5-flash';
+
+      const DEFAULT_HEADER_LOGO_SVG = `
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="14" rx="2.5" />
+          <path stroke-linecap="round" d="M7 9h6M7 13h4" />
+          <circle cx="16.5" cy="12" r="2" />
+        </svg>
+      `;
+
+      // =========================================================================
+      // 2. TOAST NOTIFICATION & SAFE CLIPBOARD HELPER
+      // =========================================================================
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        const colors = {
+          success: 'bg-slate-900 dark:bg-[#1a2132] text-white border-brand-500/60',
+          info: 'bg-slate-900 dark:bg-[#1a2132] text-slate-100 border-sky-500/60',
+          error: 'bg-red-950 text-red-100 border-red-500/70'
+        };
+        const dotColors = {
+          success: 'bg-brand-500',
+          info: 'bg-sky-400',
+          error: 'bg-red-400'
+        };
+
+        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-medium transition-all duration-200 ${colors[type] || colors.success}`;
+        toast.innerHTML = `
+          <span class="w-2 h-2 rounded-full shrink-0 ${dotColors[type] || dotColors.success}"></span>
+          <span class="flex-1 leading-snug">${escapeHtml(message)}</span>
+        `;
+
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(6px)';
+          setTimeout(() => toast.remove(), 220);
+        }, 3200);
+      }
+
+      function copyTextToClipboard(text) {
+        try {
+          const tempArea = document.createElement('textarea');
+          tempArea.value = text;
+          tempArea.setAttribute('readonly', '');
+          tempArea.style.position = 'fixed';
+          tempArea.style.left = '-9999px';
+          document.body.appendChild(tempArea);
+          tempArea.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(tempArea);
+          if (ok) return true;
+        } catch (err) {
+          // Fallback below
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).catch(() => {});
+          return true;
+        }
+        return false;
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // =========================================================================
+      // 3. PENGATURAN LOGO POJOK KIRI ATAS & API KEY GEMINI (100% RELIABLE)
+      // =========================================================================
+      function applyHeaderLogoFromUrl(rawUrl) {
+        const logoBox = document.getElementById('brandLogoBox');
+        if (!logoBox) return;
+
+        const cleanUrl = (rawUrl || '').trim();
+        if (!cleanUrl) {
+          logoBox.className = 'w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20 overflow-hidden shrink-0';
+          logoBox.style.background = '';
+          logoBox.innerHTML = DEFAULT_HEADER_LOGO_SVG;
+          return;
+        }
+
+        // Hapus gradient kuning (background transparan) & pasang <img /> dengan onerror fallback
+        logoBox.className = 'w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden shrink-0 bg-transparent';
+        logoBox.style.background = 'transparent';
+        logoBox.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.src = cleanUrl;
+        img.alt = 'Logo';
+        img.className = 'w-full h-full object-cover';
+        img.onerror = function () {
+          logoBox.className = 'w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20 overflow-hidden shrink-0';
+          logoBox.style.background = '';
+          logoBox.innerHTML = DEFAULT_HEADER_LOGO_SVG;
+        };
+        logoBox.appendChild(img);
+      }
+
+      window.previewSettingsLogo = function (rawUrl) {
+        const previewBox = document.getElementById('settingsLogoPreviewBox');
+        if (!previewBox) return;
+
+        const cleanUrl = (rawUrl || '').trim();
+        if (!cleanUrl) {
+          previewBox.className = 'w-11 h-11 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-md shrink-0 overflow-hidden border border-slate-200 dark:border-[#263044]';
+          previewBox.style.background = '';
+          previewBox.innerHTML = DEFAULT_HEADER_LOGO_SVG;
+          return;
+        }
+
+        previewBox.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 overflow-hidden border border-slate-200 dark:border-[#263044] bg-transparent';
+        previewBox.style.background = 'transparent';
+        previewBox.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.src = cleanUrl;
+        img.alt = 'Preview Logo';
+        img.className = 'w-full h-full object-cover';
+        img.onerror = function () {
+          previewBox.className = 'w-11 h-11 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-md shrink-0 overflow-hidden border border-slate-200 dark:border-[#263044]';
+          previewBox.style.background = '';
+          previewBox.innerHTML = DEFAULT_HEADER_LOGO_SVG;
+        };
+        previewBox.appendChild(img);
+      };
+
+      function refreshApiStatusIndicators() {
+        const savedKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        const headerBadge = document.getElementById('settingsApiBadge');
+        const statusText = document.getElementById('settingsApiStatusText');
+
+        if (headerBadge) {
+          headerBadge.style.display = savedKey ? 'inline-block' : 'none';
+        }
+        if (statusText) {
+          if (savedKey) {
+            statusText.textContent = 'Tersimpan (' + savedKey.slice(0, 6) + '...)';
+            statusText.className = 'text-[11px] font-mono text-emerald-500 font-bold';
+          } else {
+            statusText.textContent = 'Belum diatur';
+            statusText.className = 'text-[11px] font-mono text-slate-400';
+          }
+        }
+      }
+
+      window.openSettingsModal = function () {
+        const modal = document.getElementById('settingsModal');
+        const logoInput = document.getElementById('inputLogoUrl');
+        const apiInput = document.getElementById('inputGeminiApiKey');
+        const eyeOpen = document.getElementById('iconEyeOpen');
+        const eyeClosed = document.getElementById('iconEyeClosed');
+
+        if (!modal) return;
+
+        const savedLogoUrl = localStorage.getItem(STORAGE_KEYS.LOGO_URL) || '';
+        const savedApiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '';
+
+        if (logoInput) logoInput.value = savedLogoUrl;
+        if (apiInput) {
+          apiInput.value = savedApiKey;
+          apiInput.type = 'password';
+        }
+        if (eyeOpen) eyeOpen.style.display = 'block';
+        if (eyeClosed) eyeClosed.style.display = 'none';
+
+        window.previewSettingsLogo(savedLogoUrl);
+        refreshApiStatusIndicators();
+
+        // Gunakan explicit display: flex (tanpa class 'hidden' yang bentrok)
+        modal.style.display = 'flex';
+      };
+
+      window.closeSettingsModal = function () {
+        const modal = document.getElementById('settingsModal');
+        if (modal) {
+          modal.style.display = 'none';
+        }
+      };
+
+      window.resetLogoToDefault = function () {
+        const logoInput = document.getElementById('inputLogoUrl');
+        if (logoInput) {
+          logoInput.value = '';
+        }
+        window.previewSettingsLogo('');
+        showToast('Preview logo direset ke default. Klik Save untuk menyimpan.', 'info');
+      };
+
+      window.toggleApiKeyVisibility = function () {
+        const apiInput = document.getElementById('inputGeminiApiKey');
+        const eyeOpen = document.getElementById('iconEyeOpen');
+        const eyeClosed = document.getElementById('iconEyeClosed');
+        if (!apiInput) return;
+
+        if (apiInput.type === 'password') {
+          apiInput.type = 'text';
+          if (eyeOpen) eyeOpen.style.display = 'none';
+          if (eyeClosed) eyeClosed.style.display = 'block';
+        } else {
+          apiInput.type = 'password';
+          if (eyeOpen) eyeOpen.style.display = 'block';
+          if (eyeClosed) eyeClosed.style.display = 'none';
+        }
+      };
+
+      window.saveSettings = function () {
+        const logoInput = document.getElementById('inputLogoUrl');
+        const apiInput = document.getElementById('inputGeminiApiKey');
+
+        const logoUrl = logoInput ? logoInput.value.trim() : '';
+        const geminiApiKey = apiInput ? apiInput.value.trim() : '';
+
+        try {
+          if (logoUrl) {
+            localStorage.setItem(STORAGE_KEYS.LOGO_URL, logoUrl);
+          } else {
+            localStorage.removeItem(STORAGE_KEYS.LOGO_URL);
+          }
+
+          if (geminiApiKey) {
+            localStorage.setItem(STORAGE_KEYS.GEMINI_API_KEY, geminiApiKey);
+          } else {
+            localStorage.removeItem(STORAGE_KEYS.GEMINI_API_KEY);
+          }
+        } catch (err) {
+          // Handle storage quota edge case gracefully
+        }
+
+        applyHeaderLogoFromUrl(logoUrl);
+        refreshApiStatusIndicators();
+        window.closeSettingsModal();
+        showToast('Pengaturan berhasil disimpan!');
+      };
+
+      function loadInitialSettings() {
+        const savedLogoUrl = localStorage.getItem(STORAGE_KEYS.LOGO_URL) || '';
+        const savedApiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '';
+
+        const logoInput = document.getElementById('inputLogoUrl');
+        const apiInput = document.getElementById('inputGeminiApiKey');
+        if (logoInput) logoInput.value = savedLogoUrl;
+        if (apiInput) apiInput.value = savedApiKey;
+
+        applyHeaderLogoFromUrl(savedLogoUrl);
+        window.previewSettingsLogo(savedLogoUrl);
+        refreshApiStatusIndicators();
+      }
+
+      // =========================================================================
+      // 4. APPLICATION STATE & PRESETS DATA
+      // =========================================================================
+      const SIZE_PRESETS = {
+        '400x100': { label: 'Spanduk Standar', dim: '400×100 cm', ratio: '4:1', arCss: '4 / 1', mjAr: '4:1' },
+        '400x50':  { label: 'Spanduk Panjang / Listplank', dim: '400×50 cm', ratio: '8:1', arCss: '8 / 1', mjAr: '8:1' },
+        '300x100': { label: 'Spanduk Medium', dim: '300×100 cm', ratio: '3:1', arCss: '3 / 1', mjAr: '3:1' },
+        '60x160':  { label: 'X-Banner / Roll-Up Banner', dim: '60×160 cm', ratio: '3:8', arCss: '3 / 8', mjAr: '3:8' },
+        '300x400': { label: 'Baliho / Billboard Vertikal', dim: '300×400 cm', ratio: '3:4', arCss: '3 / 4', mjAr: '3:4' },
+        '1:1':     { label: 'Poster / Feed Instagram', dim: '1080×1080 px', ratio: '1:1', arCss: '1 / 1', mjAr: '1:1' },
+        '16:9':    { label: 'Web Hero / YouTube Banner', dim: '1920×1080 px', ratio: '16:9', arCss: '16 / 9', mjAr: '16:9' },
+        '9:16':    { label: 'Story / TikTok / Reels', dim: '1080×1920 px', ratio: '9:16', arCss: '9 / 16', mjAr: '9:16' }
+      };
+
+      const PHOTO_ROLES = [
+        { value: 'Foto Produk Utama', en: 'Main Product Reference', hint: 'Jadikan produk ini sebagai objek hero utama dengan pencahayaan komersial tajam' },
+        { value: 'Foto Orang / Model', en: 'Person / Model Reference', hint: 'Pertahankan kemiripan wajah, ekspresi, dan pose orang pada foto referensi ini' },
+        { value: 'Logo Brand', en: 'Brand Logo Overlay', hint: 'Tempatkan logo brand ini secara presisi dan jelas di sudut atas banner tanpa distorsi' },
+        { value: 'Kemasan / Packaging', en: 'Product Packaging', hint: 'Tampilkan bentuk dan label kemasan produk secara akurat dan menggugah selera' },
+        { value: 'Referensi Gaya / Background', en: 'Style / Background Reference', hint: 'Gunakan nuansa warna, tekstur, dan atmosfer latar belakang dari gambar ini' },
+        { value: 'Lainnya', en: 'Supporting Visual Element', hint: 'Integrasikan elemen visual pendukung ini secara harmonis ke dalam komposisi' }
+      ];
+
+      const QUICK_PRESETS = {
+        warung: {
+          sizePreset: '400x100',
+          aiPlatform: 'chatgpt',
+          headline: 'AYAM GEPREK JUARA — PEDASNYA BIKIN NAGIH!',
+          subheadline: 'Sambal Bawang Ulek Dadakan • Paket Hemat Mulai Rp 15.000',
+          ctaBadge: 'GRATIS ES TEH MANIS!',
+          contactInfo: 'WA: 0812-3456-7890 • Jl. Raya Merdeka No. 45 • @ayamgeprekjuara',
+          designStyle: 'Bold Kuliner Menggugah Selera',
+          typographyStyle: 'Bold Impact Sans-Serif',
+          layout: 'Panoramic Strip Spanduk',
+          colorPrimary: '#dc2626',
+          colorAccent: '#facc15',
+          colorBg: '#18181b',
+          visualObject: 'Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal bawang cabai rawit merah segar melimpah, lalapan timun, dan kepulan asap hangat, foto food photography komersial profesional.',
+          lightingMood: 'Hangat Golden Hour & Menggugah Selera',
+          sketchMode: false
+        },
+        sosmed: {
+          sizePreset: '1:1',
+          aiPlatform: 'gemini',
+          headline: 'MEGA FLASH SALE 50% OFF!',
+          subheadline: 'Koleksi Gadget & Aksesoris Original Bergaransi Resmi',
+          ctaBadge: 'BELI SEKARANG • STOK TERBATAS',
+          contactInfo: 'Order via Website & Marketplace • IG: @techstore.id',
+          designStyle: 'Festive Promo & Diskon Retail',
+          typographyStyle: '3D Extruded & Metallic Promo',
+          layout: 'Center Hero Focus',
+          colorPrimary: '#2563eb',
+          colorAccent: '#facc15',
+          colorBg: '#0f172a',
+          visualObject: 'Smartwatch flagship modern dan wireless earbuds melayang dinamis di tengah podium bercahaya neon biru dengan percikan partikel cahaya 3D.',
+          lightingMood: 'Studio Komersial Terang & Tajam',
+          sketchMode: false
+        },
+        webhero: {
+          sizePreset: '16:9',
+          aiPlatform: 'chatgpt',
+          headline: 'SOLUSI DIGITAL TERPADU UNTUK BISNIS MODERN',
+          subheadline: 'Otomatisasi Operasional, Analitik Real-Time & Skalabilitas Cloud Tanpa Batas',
+          ctaBadge: 'COBA GRATIS 14 HARI',
+          contactInfo: 'www.nusantaracloud.id • Konsultasi: 021-555-8899',
+          designStyle: 'Modern Minimalis Korporat',
+          typographyStyle: 'Modern Geometric Clean',
+          layout: 'Split Kiri-Kanan',
+          colorPrimary: '#2563eb',
+          colorAccent: '#38bdf8',
+          colorBg: '#0b1120',
+          visualObject: 'Tampilan antarmuka dashboard analitik 3D glassmorphism modern melayang rapi di sisi kanan dengan aksen garis jaringan data bercahaya halus.',
+          lightingMood: 'Soft Daylight Bersih & Natural',
+          sketchMode: false
+        },
+        tiktok: {
+          sizePreset: '9:16',
+          aiPlatform: 'chatgpt',
+          headline: 'GLOWING INSTAN DALAM 7 HARI!',
+          subheadline: 'Serum Niacinamide 10% + Hyaluronic Acid BPOM & Halal',
+          ctaBadge: 'CHECKOUT KERANJANG KUNING!',
+          contactInfo: 'TikTok Shop & IG: @auraskincare.official',
+          designStyle: 'Elegan Mewah & Eksklusif',
+          typographyStyle: 'Elegant Luxury Serif',
+          layout: 'Top-to-Bottom X-Banner',
+          colorPrimary: '#ec4899',
+          colorAccent: '#facc15',
+          colorBg: '#4c1d95',
+          visualObject: 'Botol serum kaca mewah dengan pipet tetes kristal berkilau dikelilingi percikan air segar dan kelopak bunga satin lembut.',
+          lightingMood: 'Studio Komersial Terang & Tajam',
+          sketchMode: false
+        },
+        xbanner: {
+          sizePreset: '60x160',
+          aiPlatform: 'ideogram',
+          headline: 'SEMINAR NASIONAL BISNIS DIGITAL & AI 2026',
+          subheadline: 'Strategi Meningkatkan Omzet UMKM 5x Lipat dengan Kecerdasan Buatan',
+          ctaBadge: 'DAFTAR SEKARANG — KUOTA TERBATAS!',
+          contactInfo: 'Sabtu, 28 Nov 2026 • Grand Ballroom Hotel • WA: 0811-2233-4455',
+          designStyle: 'Enerjik Sport & Event',
+          typographyStyle: 'Bold Impact Sans-Serif',
+          layout: 'Top-to-Bottom X-Banner',
+          colorPrimary: '#f59e0b',
+          colorAccent: '#ffffff',
+          colorBg: '#0f172a',
+          visualObject: 'Panggung konferensi teknologi modern dengan siluet pembicara profesional, ikon hologram AI keemasan, dan sorot lampu panggung megah.',
+          lightingMood: 'Dramatis Rim Light & Kontras Tinggi',
+          sketchMode: false
+        }
+      };
+
+      const state = {
+        sizePreset: '400x100',
+        customWidth: 500,
+        customHeight: 150,
+        customUnit: 'cm',
+        aiPlatform: 'chatgpt',
+        headline: 'AYAM GEPREK JUARA — PEDASNYA BIKIN NAGIH!',
+        subheadline: 'Sambal Bawang Ulek Dadakan • Paket Hemat Mulai Rp 15.000',
+        ctaBadge: 'GRATIS ES TEH MANIS!',
+        contactInfo: 'WA: 0812-3456-7890 • Jl. Raya Merdeka No. 45 • @ayamgeprekjuara',
+        designStyle: 'Bold Kuliner Menggugah Selera',
+        typographyStyle: 'Bold Impact Sans-Serif',
+        layout: 'Panoramic Strip Spanduk',
+        colorPrimary: '#dc2626',
+        colorAccent: '#facc15',
+        colorBg: '#18181b',
+        visualObject: 'Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal bawang cabai rawit merah segar melimpah, lalapan timun, dan kepulan asap hangat, foto food photography komersial profesional.',
+        lightingMood: 'Hangat Golden Hour & Menggugah Selera',
+        sketchMode: false,
+        activeTab: 'en',
+        polishedText: null,
+        referencePhotos: []
+      };
+
+      // =========================================================================
+      // 5. DIMENSION & COLOR UTILITIES
+      // =========================================================================
+      function gcd(a, b) {
+        a = Math.abs(Math.round(a));
+        b = Math.abs(Math.round(b));
+        while (b) {
+          const t = b;
+          b = a % b;
+          a = t;
+        }
+        return a || 1;
+      }
+
+      function getDimensionInfo() {
+        if (state.sizePreset !== 'custom' && SIZE_PRESETS[state.sizePreset]) {
+          return SIZE_PRESETS[state.sizePreset];
+        }
+        const w = Math.max(1, Number(state.customWidth) || 500);
+        const h = Math.max(1, Number(state.customHeight) || 150);
+        const unit = state.customUnit || 'cm';
+        const divisor = gcd(w, h);
+        const rw = Math.round(w / divisor);
+        const rh = Math.round(h / divisor);
+        return {
+          label: 'Custom Banner',
+          dim: `${w}×${h} ${unit}`,
+          ratio: `${rw}:${rh}`,
+          arCss: `${w} / ${h}`,
+          mjAr: `${rw}:${rh}`
+        };
+      }
+
+      function describeHexColor(hex) {
+        const clean = (hex || '#000000').replace('#', '');
+        if (clean.length !== 6) return 'Warna Kustom';
+        const r = parseInt(clean.substring(0, 2), 16);
+        const g = parseInt(clean.substring(2, 4), 16);
+        const b = parseInt(clean.substring(4, 6), 16);
+
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const l = (max + min) / 2 / 255;
+
+        if (l < 0.14) return 'Hitam Pekat';
+        if (l > 0.92 && max - min < 20) return 'Putih Bersih';
+        if (max - min < 18) return l > 0.5 ? 'Abu-Abu Terang' : 'Abu-Abu Gelap';
+
+        let h = 0;
+        const d = max - min;
+        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+        else if (max === g) h = ((b - r) / d + 2) * 60;
+        else h = ((r - g) / d + 4) * 60;
+
+        if (h < 18 || h >= 342) return l > 0.55 ? 'Merah Muda / Coral' : 'Merah Cerah Menyala';
+        if (h < 42) return 'Oranye Hangat';
+        if (h < 68) return 'Kuning Emas Cerah';
+        if (h < 160) return l < 0.35 ? 'Hijau Zamrud Gelap' : 'Hijau Segar';
+        if (h < 205) return 'Biru Cyan / Toska';
+        if (h < 255) return l < 0.32 ? 'Biru Navy Gelap' : 'Biru Elektrik Modern';
+        if (h < 295) return 'Ungu Royal';
+        return 'Magenta / Pink Cerah';
+      }
+
+      // =========================================================================
+      // 6. MULTI-UPLOAD REFERENSI FOTO HANDLERS
+      // =========================================================================
+      function handlePhotoFiles(fileList) {
+        if (!fileList || !fileList.length) return;
+        const files = Array.from(fileList).filter((f) => f.type && f.type.startsWith('image/'));
+        if (!files.length) {
+          showToast('Pilih file gambar yang valid (JPG, PNG, WEBP).', 'error');
+          return;
+        }
+
+        let loadedCount = 0;
+        files.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = function (evt) {
+            const dataUrl = evt.target.result;
+            const img = new Image();
+            img.onload = function () {
+              // Guess smart default category from filename
+              const lower = file.name.toLowerCase();
+              let defaultRole = PHOTO_ROLES[0]; // Foto Produk Utama
+              if (lower.includes('logo') || lower.includes('icon') || lower.includes('brand')) {
+                defaultRole = PHOTO_ROLES[2];
+              } else if (lower.includes('orang') || lower.includes('model') || lower.includes('person') || lower.includes('foto') || lower.includes('owner')) {
+                defaultRole = PHOTO_ROLES[1];
+              } else if (lower.includes('box') || lower.includes('pack') || lower.includes('kemasan')) {
+                defaultRole = PHOTO_ROLES[3];
+              } else if (lower.includes('bg') || lower.includes('back')) {
+                defaultRole = PHOTO_ROLES[4];
+              }
+
+              state.referencePhotos.push({
+                id: 'ref_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+                name: file.name,
+                width: img.naturalWidth || 0,
+                height: img.naturalHeight || 0,
+                dataUrl: dataUrl,
+                role: defaultRole.value,
+                roleEn: defaultRole.en,
+                note: defaultRole.hint
+              });
+
+              loadedCount++;
+              if (loadedCount === files.length) {
+                state.polishedText = null;
+                renderAll();
+                showToast(`${files.length} foto referensi berhasil ditambahkan!`);
+              }
+            };
+            img.src = dataUrl;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      window.openPhotoLightbox = function (photoId) {
+        const idx = state.referencePhotos.findIndex((p) => p.id === photoId);
+        if (idx === -1) return;
+        const photo = state.referencePhotos[idx];
+
+        const modal = document.getElementById('imageLightboxModal');
+        document.getElementById('lightbox-index-badge').textContent = `Foto #${idx + 1}`;
+        document.getElementById('lightbox-role-badge').textContent = photo.role;
+        document.getElementById('lightbox-filename').textContent = photo.name;
+        document.getElementById('lightbox-img').src = photo.dataUrl;
+        document.getElementById('lightbox-note').textContent = photo.note || '-';
+        document.getElementById('lightbox-dim').textContent = `${photo.width}×${photo.height} px`;
+
+        modal.style.display = 'flex';
+      };
+
+      function closeLightbox() {
+        const modal = document.getElementById('imageLightboxModal');
+        if (modal) modal.style.display = 'none';
+      }
+
+      function renderReferencePhotosList() {
+        const listEl = document.getElementById('uploaded-photos-list');
+        const addMoreBtn = document.getElementById('add-more-photos-btn');
+        const clearAllBtn = document.getElementById('clear-all-photos-btn');
+
+        if (!state.referencePhotos.length) {
+          listEl.style.display = 'none';
+          listEl.innerHTML = '';
+          addMoreBtn.style.display = 'none';
+          clearAllBtn.style.display = 'none';
+          return;
+        }
+
+        listEl.style.display = 'block';
+        addMoreBtn.style.display = 'inline-flex';
+        clearAllBtn.style.display = 'inline-block';
+
+        listEl.innerHTML = state.referencePhotos
+          .map((photo, index) => {
+            const roleOptions = PHOTO_ROLES.map(
+              (r) => `<option value="${escapeHtml(r.value)}" ${r.value === photo.role ? 'selected' : ''}>${escapeHtml(r.value)}</option>`
+            ).join('');
+
+            return `
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex flex-col sm:flex-row gap-3 items-start">
+                <button type="button" onclick="window.openPhotoLightbox('${photo.id}')" title="Klik untuk memperbesar" class="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-300 dark:border-[#263044] shrink-0 group cursor-pointer bg-black/20">
+                  <img src="${photo.dataUrl}" alt="${escapeHtml(photo.name)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded bg-black/75 text-brand-400 font-mono text-[10px] font-bold">#${index + 1}</span>
+                </button>
+
+                <div class="flex-1 min-w-0 w-full space-y-2">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                      <p class="text-xs font-bold truncate text-slate-800 dark:text-slate-100">${escapeHtml(photo.name)}</p>
+                      <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400">${photo.width}×${photo.height} px</p>
+                    </div>
+                    <button type="button" data-remove-photo="${photo.id}" class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition cursor-pointer" title="Hapus Foto">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <select data-photo-role="${photo.id}" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-[#131824] border border-slate-300 dark:border-[#263044] focus:outline-none focus:border-brand-500">
+                      ${roleOptions}
+                    </select>
+                    <input type="text" data-photo-note="${photo.id}" value="${escapeHtml(photo.note)}" placeholder="Instruksi penempatan foto..." class="px-2.5 py-1.5 rounded-lg text-xs bg-white dark:bg-[#131824] border border-slate-300 dark:border-[#263044] focus:outline-none focus:border-brand-500" />
+                  </div>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+
+        // Bind events on dynamically rendered photo cards
+        listEl.querySelectorAll('[data-remove-photo]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-remove-photo');
+            state.referencePhotos = state.referencePhotos.filter((p) => p.id !== id);
+            state.polishedText = null;
+            renderAll();
+          });
+        });
+
+        listEl.querySelectorAll('[data-photo-role]').forEach((sel) => {
+          sel.addEventListener('change', () => {
+            const id = sel.getAttribute('data-photo-role');
+            const target = state.referencePhotos.find((p) => p.id === id);
+            const roleMeta = PHOTO_ROLES.find((r) => r.value === sel.value) || PHOTO_ROLES[0];
+            if (target) {
+              target.role = roleMeta.value;
+              target.roleEn = roleMeta.en;
+              target.note = roleMeta.hint;
+              state.polishedText = null;
+              renderAll();
+            }
+          });
+        });
+
+        listEl.querySelectorAll('[data-photo-note]').forEach((inp) => {
+          inp.addEventListener('input', () => {
+            const id = inp.getAttribute('data-photo-note');
+            const target = state.referencePhotos.find((p) => p.id === id);
+            if (target) {
+              target.note = inp.value;
+              state.polishedText = null;
+              renderOutputAttachedPhotos();
+              renderPromptOutput();
+            }
+          });
+        });
+      }
+
+      function renderOutputAttachedPhotos() {
+        const section = document.getElementById('output-attached-photos-section');
+        const grid = document.getElementById('output-attached-photos-grid');
+        const badge = document.getElementById('attached-photos-count-badge');
+
+        if (!state.referencePhotos.length) {
+          section.style.display = 'none';
+          grid.innerHTML = '';
+          return;
+        }
+
+        section.style.display = 'block';
+        badge.textContent = `${state.referencePhotos.length} Foto`;
+
+        grid.innerHTML = state.referencePhotos
+          .map(
+            (photo, idx) => `
+              <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex items-center gap-2.5">
+                <button type="button" onclick="window.openPhotoLightbox('${photo.id}')" class="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-slate-300 dark:border-[#263044] cursor-pointer">
+                  <img src="${photo.dataUrl}" alt="${escapeHtml(photo.name)}" class="w-full h-full object-cover" />
+                  <span class="absolute bottom-0 inset-x-0 bg-black/75 text-brand-400 font-mono text-[9px] font-bold text-center">#${idx + 1}</span>
+                </button>
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-brand-500/15 text-brand-600 dark:text-brand-400">${escapeHtml(photo.role)}</span>
+                  <p class="text-[11px] font-semibold truncate mt-0.5 text-slate-800 dark:text-slate-200">${escapeHtml(photo.name)}</p>
+                  <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">${escapeHtml(photo.note)}</p>
+                </div>
+                <a href="${photo.dataUrl}" download="${escapeHtml(photo.name)}" title="Unduh Foto" class="p-1.5 rounded-lg text-slate-400 hover:text-brand-500 hover:bg-brand-500/10 transition shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </a>
+              </div>
+            `
+          )
+          .join('');
+      }
+
+      // =========================================================================
+      // 7. LIVE LAYOUT WIREFRAME PREVIEW RENDERER
+      // =========================================================================
+      function renderWireframe() {
+        const dimInfo = getDimensionInfo();
+        const canvas = document.getElementById('wireframe-canvas');
+        const dimBadge = document.getElementById('wireframe-dim-badge');
+        const ratioBadge = document.getElementById('wireframe-ratio-badge');
+        const sketchBadge = document.getElementById('wireframe-sketch-badge');
+        const paletteStrip = document.getElementById('wireframe-palette-strip');
+        const layoutLabel = document.getElementById('wireframe-layout-label');
+
+        dimBadge.textContent = dimInfo.dim;
+        ratioBadge.textContent = dimInfo.ratio;
+        sketchBadge.style.display = state.sketchMode ? 'inline-block' : 'none';
+        layoutLabel.textContent = `Layout: ${state.layout}`;
+
+        // Set dynamic aspect-ratio and background
+        const parts = dimInfo.arCss.split('/').map((n) => parseFloat(n.trim()) || 1);
+        const numericRatio = parts[0] / parts[1];
+        canvas.style.aspectRatio = dimInfo.arCss;
+        if (numericRatio < 0.85) {
+          canvas.style.width = 'auto';
+          canvas.style.height = '270px';
+          canvas.style.maxWidth = '100%';
+        } else {
+          canvas.style.width = '100%';
+          canvas.style.height = 'auto';
+          canvas.style.maxHeight = '270px';
+        }
+
+        canvas.style.background = `linear-gradient(135deg, ${state.colorPrimary} 0%, ${state.colorBg} 100%)`;
+
+        const logoPhoto = state.referencePhotos.find((p) => p.role === 'Logo Brand');
+        const heroPhotos = state.referencePhotos.filter((p) => p.role !== 'Logo Brand');
+
+        const heroThumbHtml = heroPhotos.length
+          ? `<div class="flex items-center justify-center gap-1.5 flex-wrap">
+              ${heroPhotos
+                .slice(0, 3)
+                .map(
+                  (p, i) => `
+                  <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 border-white/80 shadow-md bg-black/30">
+                    <img src="${p.dataUrl}" alt="Ref" class="w-full h-full object-cover" />
+                    <span class="absolute bottom-0 right-0 px-1 bg-black/75 text-[8px] font-mono text-brand-400">#${i + 1}</span>
+                  </div>`
+                )
+                .join('')}
+            </div>`
+          : `<div class="px-2.5 py-1.5 rounded-lg border border-dashed border-white/45 bg-black/25 text-[10px] font-mono text-center uppercase tracking-wider">
+              [ZONA OBJEK HERO]
+            </div>`;
+
+        const logoCornerHtml = logoPhoto
+          ? `<img src="${logoPhoto.dataUrl}" alt="Logo" class="h-6 w-auto rounded bg-white/90 p-0.5 object-contain shadow" />`
+          : `<span class="px-1.5 py-0.5 rounded bg-black/35 text-[9px] font-mono uppercase tracking-wider border border-white/20">LOGO</span>`;
+
+        const headlineShort = escapeHtml((state.headline || 'HEADLINE UTAMA').slice(0, 44));
+        const subShort = escapeHtml((state.subheadline || 'Sub-headline').slice(0, 48));
+        const ctaShort = escapeHtml((state.ctaBadge || 'PROMO').slice(0, 26));
+        const contactShort = escapeHtml((state.contactInfo || '').slice(0, 45));
+
+        const isVertical = numericRatio < 1;
+
+        canvas.innerHTML = `
+          <div class="flex items-center justify-between gap-2 z-10">
+            ${logoCornerHtml}
+            <span style="background-color: ${state.colorAccent}; color: #09090b;" class="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wide shadow">
+              ${ctaShort}
+            </span>
+          </div>
+
+          <div class="my-auto py-1 flex ${isVertical ? 'flex-col text-center' : 'flex-row items-center justify-between'} gap-2.5 z-10">
+            <div class="min-w-0 flex-1 space-y-0.5">
+              <div class="font-extrabold text-xs sm:text-sm leading-tight drop-shadow line-clamp-2">${headlineShort}</div>
+              <div class="text-[10px] text-white/90 line-clamp-1">${subShort}</div>
+            </div>
+            <div class="shrink-0">
+              ${heroThumbHtml}
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 text-[9px] font-mono text-white/85 border-t border-white/15 pt-1 z-10">
+            <span class="truncate">${contactShort}</span>
+            <span class="shrink-0 opacity-75">${dimInfo.ratio}</span>
+          </div>
+        `;
+
+        paletteStrip.innerHTML = `
+          <span class="inline-flex items-center gap-1 font-mono text-slate-600 dark:text-slate-300">
+            <span class="w-3 h-3 rounded-full border border-white/30" style="background:${state.colorPrimary}"></span>${state.colorPrimary.toUpperCase()}
+          </span>
+          <span class="inline-flex items-center gap-1 font-mono text-slate-600 dark:text-slate-300">
+            <span class="w-3 h-3 rounded-full border border-white/30" style="background:${state.colorAccent}"></span>${state.colorAccent.toUpperCase()}
+          </span>
+          <span class="inline-flex items-center gap-1 font-mono text-slate-600 dark:text-slate-300">
+            <span class="w-3 h-3 rounded-full border border-white/30" style="background:${state.colorBg}"></span>${state.colorBg.toUpperCase()}
+          </span>
+        `;
+      }
+
+      // =========================================================================
+      // 8. PROMPT BUILDERS (EN, ID, JSON)
+      // =========================================================================
+      function buildPromptEN() {
+        const dimInfo = getDimensionInfo();
+        const cPrimaryDesc = `${state.colorPrimary.toUpperCase()} (${describeHexColor(state.colorPrimary)})`;
+        const cAccentDesc = `${state.colorAccent.toUpperCase()} (${describeHexColor(state.colorAccent)})`;
+        const cBgDesc = `${state.colorBg.toUpperCase()} (${describeHexColor(state.colorBg)})`;
+
+        let platformDirective = '';
+        if (state.aiPlatform === 'chatgpt') {
+          platformDirective = 'Optimized for ChatGPT / GPT-4o Image Generation: Render exact, crisp, spell-checked Indonesian typography with clean kerning and seamless multi-image reference blending.';
+        } else if (state.aiPlatform === 'gemini') {
+          platformDirective = 'Optimized for Google Gemini / Imagen 3: Photorealistic commercial studio lighting, natural textures, and accurate integration of attached reference images.';
+        } else if (state.aiPlatform === 'ideogram') {
+          platformDirective = 'Optimized for Ideogram 2.0: Graphic poster & banner typography precision, clean vector accents, zero spelling errors.';
+        } else if (state.aiPlatform === 'midjourney') {
+          platformDirective = `Optimized for Midjourney v6: Ultra-detailed commercial advertising layout, high-impact visual hierarchy.`;
+        }
+
+        let refBlock = '';
+        if (state.referencePhotos.length > 0) {
+          const refLines = state.referencePhotos.map(
+            (p, idx) => `  - Reference Image #${idx + 1} ("${p.name}", ${p.width}x${p.height}px) -> Role: [${p.roleEn}] — ${p.note}`
+          );
+          refBlock = `\n\nATTACHED REFERENCE IMAGES (${state.referencePhotos.length} file(s) — MUST INTEGRATE ACCURATELY):\n${refLines.join('\n')}`;
+        }
+
+        const sketchBlock = state.sketchMode
+          ? `\n\nSKETCH-TO-BANNER TRANSFORMATION MODE ACTIVE: Transform the attached rough hand-drawn wireframe/sketch layout into a polished, print-ready commercial banner while preserving the exact structural placement of text zones and hero elements.`
+          : '';
+
+        const mjSuffix = state.aiPlatform === 'midjourney' ? `\n\n--ar ${dimInfo.mjAr} --v 6.0 --style raw` : '';
+
+        return `Create a professional, high-converting commercial banner graphic design (${dimInfo.label}, dimensions ${dimInfo.dim}, aspect ratio ${dimInfo.ratio}).
+
+${platformDirective}
+
+VISUAL STYLE & COMPOSITION:
+- Art Direction: ${state.designStyle}
+- Layout Structure: ${state.layout} with clear visual hierarchy, safe print margins, and balanced negative space
+- Typography Style: ${state.typographyStyle}, high contrast, sharp readability from a distance
+- Lighting & Atmosphere: ${state.lightingMood}
+
+MAIN HERO SUBJECT & BACKGROUND:
+- ${state.visualObject}
+
+COLOR PALETTE:
+- Primary Brand Color: ${cPrimaryDesc}
+- Highlight / Badge Accent Color: ${cAccentDesc}
+- Base Background Color: ${cBgDesc}
+
+EXACT TEXT CONTENT TO RENDER (NO TYPOS):
+1. Main Headline (Largest, bold focal point): "${state.headline}"
+2. Sub-Headline / Tagline: "${state.subheadline}"
+3. Promo Badge / Call-To-Action: "${state.ctaBadge}"
+4. Footer Contact / Location / Social Media: "${state.contactInfo}"${refBlock}${sketchBlock}${mjSuffix}`;
+      }
+
+      function buildPromptID() {
+        const dimInfo = getDimensionInfo();
+        let refBlock = '';
+        if (state.referencePhotos.length > 0) {
+          const lines = state.referencePhotos.map(
+            (p, idx) => `  - Foto #${idx + 1} (${p.name}) -> Kategori: ${p.role} | Instruksi: ${p.note}`
+          );
+          refBlock = `\n\nREFERENSI FOTO TERLAMPIR (${state.referencePhotos.length} Foto):\n${lines.join('\n')}`;
+        }
+
+        const sketchText = state.sketchMode
+          ? `\n\nMODE CORETAN (SKETCH-TO-BANNER): Ubah sketsa/wireframe kasar yang dilampirkan menjadi desain banner komersial final siap cetak dengan tetap mempertahankan posisi tata letak elemen.`
+          : '';
+
+        return `Buatkan desain grafis banner komersial profesional berkualitas tinggi untuk media ${dimInfo.label} (Ukuran: ${dimInfo.dim}, Rasio Aspek: ${dimInfo.ratio}).
+
+ARAHAN GAYA & TATA LETAK:
+- Gaya Desain: ${state.designStyle}
+- Komposisi Tata Letak: ${state.layout} dengan hirarki visual jelas dan margin aman cetak
+- Gaya Tipografi: ${state.typographyStyle}, kontras tinggi, tajam, dan mudah dibaca dari jarak jauh
+- Pencahayaan & Suasana: ${state.lightingMood}
+
+OBJEK VISUAL UTAMA & LATAR:
+- ${state.visualObject}
+
+PALET WARNA:
+- Warna Utama: ${state.colorPrimary.toUpperCase()} (${describeHexColor(state.colorPrimary)})
+- Warna Aksen / Badge Promo: ${state.colorAccent.toUpperCase()} (${describeHexColor(state.colorAccent)})
+- Warna Latar Belakang: ${state.colorBg.toUpperCase()} (${describeHexColor(state.colorBg)})
+
+TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
+1. Headline Utama (Paling besar & mencolok): "${state.headline}"
+2. Sub-Headline / Tagline: "${state.subheadline}"
+3. Detail Promo / Badge CTA: "${state.ctaBadge}"
+4. Info Kontak / Alamat / Sosmed: "${state.contactInfo}"${refBlock}${sketchText}`;
+      }
+
+      function buildPromptJSON() {
+        const dimInfo = getDimensionInfo();
+        const obj = {
+          project: 'Prompt Studio — BANNER PRO',
+          target_ai_platform: state.aiPlatform,
+          media_specification: {
+            preset: dimInfo.label,
+            dimensions: dimInfo.dim,
+            aspect_ratio: dimInfo.ratio
+          },
+          visual_direction: {
+            design_style: state.designStyle,
+            typography_style: state.typographyStyle,
+            layout_composition: state.layout,
+            lighting_mood: state.lightingMood,
+            sketch_to_banner_mode: state.sketchMode
+          },
+          color_palette: {
+            primary: { hex: state.colorPrimary.toUpperCase(), name: describeHexColor(state.colorPrimary) },
+            accent: { hex: state.colorAccent.toUpperCase(), name: describeHexColor(state.colorAccent) },
+            background: { hex: state.colorBg.toUpperCase(), name: describeHexColor(state.colorBg) }
+          },
+          hero_subject_description: state.visualObject,
+          text_hierarchy: {
+            headline: state.headline,
+            subheadline: state.subheadline,
+            promo_cta_badge: state.ctaBadge,
+            contact_footer: state.contactInfo
+          },
+          reference_images: state.referencePhotos.map((p, idx) => ({
+            index: idx + 1,
+            filename: p.name,
+            dimensions_px: `${p.width}x${p.height}`,
+            role: p.role,
+            placement_instruction: p.note
+          }))
+        };
+        return JSON.stringify(obj, null, 2);
+      }
+
+      function getCurrentOutputText() {
+        if (state.polishedText && state.activeTab === 'en') {
+          return state.polishedText;
+        }
+        if (state.activeTab === 'id') return buildPromptID();
+        if (state.activeTab === 'json') return buildPromptJSON();
+        return buildPromptEN();
+      }
+
+      function renderPromptOutput() {
+        const textarea = document.getElementById('prompt-output-area');
+        const charLabel = document.getElementById('char-count-label');
+        const polishedBadge = document.getElementById('polished-badge');
+        const revertBtn = document.getElementById('revert-polish-btn');
+
+        const text = getCurrentOutputText();
+        textarea.value = text;
+        charLabel.textContent = `${text.length} karakter`;
+
+        const isPolishedShowing = Boolean(state.polishedText && state.activeTab === 'en');
+        polishedBadge.style.display = isPolishedShowing ? 'inline-block' : 'none';
+        revertBtn.style.display = isPolishedShowing ? 'inline-block' : 'none';
+      }
+
+      // =========================================================================
+      // 9. GEMINI API INTEGRATION (USING API KEY FROM SETTINGS)
+      // =========================================================================
+      async function callGeminiAPI(promptText, expectJson = false) {
+        const apiKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        if (!apiKey) {
+          return null;
+        }
+
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const body = {
+          contents: [{ parts: [{ text: promptText }] }]
+        };
+        if (expectJson) {
+          body.generationConfig = { responseMimeType: 'application/json' };
+        }
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      }
+
+      async function handleSmartBrief() {
+        const briefInput = document.getElementById('smart-brief-input');
+        const btnText = document.getElementById('smart-brief-btn-text');
+        const brief = (briefInput.value || '').trim();
+
+        if (!brief) {
+          showToast('Ketik konsep singkat banner terlebih dahulu.', 'info');
+          briefInput.focus();
+          return;
+        }
+
+        const savedKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        btnText.textContent = 'Memproses Brief...';
+
+        if (!savedKey) {
+          // Smart local fallback + info arahkan ke Pengaturan
+          applyLocalSmartBriefParser(brief);
+          btnText.textContent = 'Auto-Isi dari Brief';
+          showToast('Form diisi otomatis! Masukkan API Key Gemini di Pengaturan untuk hasil AI lebih cerdas.', 'info');
+          return;
+        }
+
+        try {
+          const instruction = `Kamu adalah direktur kreatif desain banner & spanduk komersial Indonesia. Ubah brief singkat berikut menjadi konfigurasi JSON dengan properti persis:
+{
+  "sizePreset": pilih salah satu dari ["400x100","400x50","300x100","60x160","300x400","1:1","16:9","9:16"],
+  "headline": "judul singkat super menarik HURUF KAPITAL",
+  "subheadline": "sub-headline pendukung",
+  "ctaBadge": "teks badge promo / CTA singkat",
+  "contactInfo": "contoh info kontak / akun sosmed",
+  "designStyle": pilih salah satu dari ["Bold Kuliner Menggugah Selera","Modern Minimalis Korporat","Festive Promo & Diskon Retail","Elegan Mewah & Eksklusif","Enerjik Sport & Event","Islami / Religi & Komunitas","3D Render & Futuristik","Ilustrasi Vektor Flat & Playful"],
+  "typographyStyle": pilih salah satu dari ["Bold Impact Sans-Serif","Modern Geometric Clean","Elegant Luxury Serif","Handwritten / Brush Script","3D Extruded & Metallic Promo","Playful Rounded Display"],
+  "layout": pilih salah satu dari ["Panoramic Strip Spanduk","Split Kiri-Kanan","Center Hero Focus","Top-to-Bottom X-Banner","Grid Katalog Multi-Produk","Asymmetric Dynamic Diagonal"],
+  "colorPrimary": "#hex",
+  "colorAccent": "#hex",
+  "colorBg": "#hex",
+  "visualObject": "deskripsi objek visual hero detail dalam Bahasa Indonesia",
+  "lightingMood": pilih salah satu dari ["Studio Komersial Terang & Tajam","Dramatis Rim Light & Kontras Tinggi","Hangat Golden Hour & Menggugah Selera","Neon Nightlife & Sorot Panggung","Soft Daylight Bersih & Natural"]
+}
+Brief user: "${brief}"`;
+
+          const rawJson = await callGeminiAPI(instruction, true);
+          const parsed = JSON.parse(rawJson);
+
+          if (parsed.sizePreset && SIZE_PRESETS[parsed.sizePreset]) state.sizePreset = parsed.sizePreset;
+          if (parsed.headline) state.headline = parsed.headline;
+          if (parsed.subheadline) state.subheadline = parsed.subheadline;
+          if (parsed.ctaBadge) state.ctaBadge = parsed.ctaBadge;
+          if (parsed.contactInfo) state.contactInfo = parsed.contactInfo;
+          if (parsed.designStyle) state.designStyle = parsed.designStyle;
+          if (parsed.typographyStyle) state.typographyStyle = parsed.typographyStyle;
+          if (parsed.layout) state.layout = parsed.layout;
+          if (parsed.colorPrimary) state.colorPrimary = parsed.colorPrimary;
+          if (parsed.colorAccent) state.colorAccent = parsed.colorAccent;
+          if (parsed.colorBg) state.colorBg = parsed.colorBg;
+          if (parsed.visualObject) state.visualObject = parsed.visualObject;
+          if (parsed.lightingMood) state.lightingMood = parsed.lightingMood;
+
+          state.polishedText = null;
+          syncFormFromState();
+          showToast('AI Smart Brief berhasil melengkapi seluruh konfigurasi!');
+        } catch (err) {
+          applyLocalSmartBriefParser(brief);
+          showToast('Gagal menghubungi Gemini API (cek API Key di Pengaturan). Menggunakan parser lokal.', 'error');
+        } finally {
+          btnText.textContent = 'Auto-Isi dari Brief';
+        }
+      }
+
+      function applyLocalSmartBriefParser(brief) {
+        const lower = brief.toLowerCase();
+        if (lower.includes('tiktok') || lower.includes('reels') || lower.includes('story') || lower.includes('9:16')) {
+          state.sizePreset = '9:16';
+          state.layout = 'Top-to-Bottom X-Banner';
+        } else if (lower.includes('x-banner') || lower.includes('xbanner') || lower.includes('60x160')) {
+          state.sizePreset = '60x160';
+          state.layout = 'Top-to-Bottom X-Banner';
+        } else if (lower.includes('instagram') || lower.includes('feed') || lower.includes('1:1')) {
+          state.sizePreset = '1:1';
+          state.layout = 'Center Hero Focus';
+        } else if (lower.includes('youtube') || lower.includes('web') || lower.includes('16:9')) {
+          state.sizePreset = '16:9';
+          state.layout = 'Split Kiri-Kanan';
+        } else {
+          state.sizePreset = '400x100';
+          state.layout = 'Panoramic Strip Spanduk';
+        }
+
+        if (lower.includes('skincare') || lower.includes('glowing') || lower.includes('pink')) {
+          state.designStyle = 'Elegan Mewah & Eksklusif';
+          state.colorPrimary = '#ec4899';
+          state.colorAccent = '#facc15';
+          state.colorBg = '#4c1d95';
+        } else if (lower.includes('seminar') || lower.includes('bisnis') || lower.includes('digital')) {
+          state.designStyle = 'Enerjik Sport & Event';
+          state.colorPrimary = '#2563eb';
+          state.colorAccent = '#facc15';
+          state.colorBg = '#0f172a';
+        }
+
+        state.headline = brief.toUpperCase().slice(0, 52);
+        state.visualObject = `Visual komersial profesional untuk konsep: ${brief}, pencahayaan tajam, komposisi bersih siap cetak.`;
+        state.polishedText = null;
+        syncFormFromState();
+      }
+
+      async function handleGenerateHeadlines() {
+        const btnText = document.getElementById('ai-headline-btn-text');
+        const box = document.getElementById('headline-suggestions-box');
+        const list = document.getElementById('headline-suggestions-list');
+
+        const savedKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        btnText.textContent = 'Membuat Ide...';
+
+        let ideas = [];
+        if (!savedKey) {
+          const base = state.headline.split('—')[0].trim() || 'PROMO SPESIAL HARI INI';
+          ideas = [
+            `${base} — DISKON HINGGA 50%!`,
+            `SERBU SEKARANG! ${base} TERLARIS`,
+            `KUALITAS JUARA, HARGA BERSAHABAT — ${base}`
+          ];
+          showToast('Menampilkan ide cepat. Isi API Key Gemini di Pengaturan untuk rekomendasi AI kustom.', 'info');
+        } else {
+          try {
+            const prompt = `Buatkan 3 variasi Headline utama banner/spanduk Bahasa Indonesia yang sangat menjual, singkat, dan mencolok (HURUF KAPITAL) berdasarkan konteks:
+- Headline saat ini: "${state.headline}"
+- Sub-headline: "${state.subheadline}"
+- Objek visual: "${state.visualObject}"
+Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
+            const raw = await callGeminiAPI(prompt, true);
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length) {
+              ideas = parsed.slice(0, 4);
+            }
+          } catch (err) {
+            showToast('Gagal memuat Ide Headline dari Gemini API. Periksa API Key di Pengaturan.', 'error');
+            btnText.textContent = 'Ide Headline AI';
+            return;
+          }
+        }
+
+        list.innerHTML = ideas
+          .map(
+            (idea) => `
+              <button type="button" data-pick-headline="${escapeHtml(idea)}" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-[#131824] hover:bg-brand-500 hover:text-slate-950 border border-brand-500/40 text-left transition cursor-pointer">
+                ${escapeHtml(idea)}
+              </button>
+            `
+          )
+          .join('');
+
+        list.querySelectorAll('[data-pick-headline]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.headline = btn.getAttribute('data-pick-headline');
+            state.polishedText = null;
+            syncFormFromState();
+            box.style.display = 'none';
+            showToast('Headline diperbarui!');
+          });
+        });
+
+        box.style.display = 'block';
+        btnText.textContent = 'Ide Headline AI';
+      }
+
+      async function handlePolishPrompt() {
+        const btnText = document.getElementById('polish-btn-text');
+        const savedKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        const currentEnPrompt = buildPromptEN();
+
+        btnText.textContent = 'Memoles...';
+
+        if (!savedKey) {
+          state.polishedText = `${currentEnPrompt}\n\nMASTER ART DIRECTION ENHANCEMENT:\nUltra-crisp 8K commercial print resolution, professional color grading, balanced depth-of-field, clean typographic hierarchy with anti-aliased vector edges, studio rim lighting, and zero visual clutter.`;
+          state.activeTab = 'en';
+          updateTabButtonsUI();
+          renderPromptOutput();
+          showToast('Prompt dipoles! Isi API Key Gemini di Pengaturan untuk polesan AI mendalam.', 'info');
+          btnText.textContent = 'Poles AI';
+          return;
+        }
+
+        try {
+          const instruction = `You are a senior commercial advertising art director and prompt engineer. Refine and elevate the following AI image generation prompt so that it produces an extraordinary, print-ready commercial banner. Keep all Indonesian text strings inside quotes 100% intact and exact, preserve aspect ratio parameters and attached reference image mappings, and enrich lighting, material textures, composition, and typography instructions. Return ONLY the polished prompt text in English without markdown fences:\n\n${currentEnPrompt}`;
+
+          const polished = await callGeminiAPI(instruction, false);
+          if (polished && polished.trim()) {
+            state.polishedText = polished.trim();
+            state.activeTab = 'en';
+            updateTabButtonsUI();
+            renderPromptOutput();
+            showToast('Prompt berhasil dipoles dengan Gemini AI!');
+          }
+        } catch (err) {
+          showToast('Gagal memoles dengan Gemini API. Periksa API Key di Pengaturan.', 'error');
+        } finally {
+          btnText.textContent = 'Poles AI';
+        }
+      }
+
+      // =========================================================================
+      // 10. HISTORY DRAWER MANAGEMENT
+      // =========================================================================
+      function getSavedHistory() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY)) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveCurrentToHistory() {
+        const items = getSavedHistory();
+        const dimInfo = getDimensionInfo();
+        const entry = {
+          id: 'hist_' + Date.now(),
+          createdAt: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
+          headline: state.headline || 'Banner Tanpa Judul',
+          dim: dimInfo.dim,
+          ratio: dimInfo.ratio,
+          platform: state.aiPlatform,
+          promptText: getCurrentOutputText(),
+          snapshot: {
+            sizePreset: state.sizePreset,
+            customWidth: state.customWidth,
+            customHeight: state.customHeight,
+            customUnit: state.customUnit,
+            aiPlatform: state.aiPlatform,
+            headline: state.headline,
+            subheadline: state.subheadline,
+            ctaBadge: state.ctaBadge,
+            contactInfo: state.contactInfo,
+            designStyle: state.designStyle,
+            typographyStyle: state.typographyStyle,
+            layout: state.layout,
+            colorPrimary: state.colorPrimary,
+            colorAccent: state.colorAccent,
+            colorBg: state.colorBg,
+            visualObject: state.visualObject,
+            lightingMood: state.lightingMood,
+            sketchMode: state.sketchMode
+          }
+        };
+
+        items.unshift(entry);
+        try {
+          localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(items.slice(0, 30)));
+        } catch {
+          // Ignore quota errors
+        }
+        renderHistoryList();
+        showToast('Konfigurasi & prompt disimpan ke Riwayat!');
+      }
+
+      function renderHistoryList() {
+        const items = getSavedHistory();
+        const badge = document.getElementById('history-badge');
+        const countLabel = document.getElementById('history-count-label');
+        const listEl = document.getElementById('history-list');
+
+        if (badge) badge.textContent = String(items.length);
+        if (countLabel) countLabel.textContent = `${items.length} item`;
+
+        if (!items.length) {
+          listEl.innerHTML = `
+            <div class="text-center py-12 px-4 space-y-2">
+              <div class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-[#1a2132] text-slate-400 mx-auto flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Belum ada riwayat tersimpan</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Klik tombol "Simpan Riwayat" pada panel hasil prompt untuk menyimpannya di sini.</p>
+            </div>
+          `;
+          return;
+        }
+
+        listEl.innerHTML = items
+          .map(
+            (item) => `
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] space-y-2">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="min-w-0">
+                    <h4 class="font-bold text-xs sm:text-sm truncate text-slate-800 dark:text-slate-100">${escapeHtml(item.headline)}</h4>
+                    <p class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">${escapeHtml(item.dim)} (${escapeHtml(item.ratio)}) • ${escapeHtml(item.createdAt)}</p>
+                  </div>
+                  <button type="button" data-delete-hist="${item.id}" class="p-1 rounded text-slate-400 hover:text-red-500 transition cursor-pointer" title="Hapus">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                  <button type="button" data-load-hist="${item.id}" class="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 transition cursor-pointer">
+                    Muat ke Editor
+                  </button>
+                  <button type="button" data-copy-hist="${item.id}" class="py-1.5 px-2.5 rounded-lg text-xs font-semibold bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
+                    Salin Prompt
+                  </button>
+                </div>
+              </div>
+            `
+          )
+          .join('');
+
+        listEl.querySelectorAll('[data-load-hist]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-load-hist');
+            const found = getSavedHistory().find((h) => h.id === id);
+            if (found && found.snapshot) {
+              Object.assign(state, found.snapshot);
+              state.polishedText = null;
+              syncFormFromState();
+              document.getElementById('historyDrawer').style.display = 'none';
+              showToast('Konfigurasi riwayat dimuat ke editor!');
+            }
+          });
+        });
+
+        listEl.querySelectorAll('[data-copy-hist]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-copy-hist');
+            const found = getSavedHistory().find((h) => h.id === id);
+            if (found) {
+              copyTextToClipboard(found.promptText);
+              showToast('Prompt dari riwayat disalin!');
+            }
+          });
+        });
+
+        listEl.querySelectorAll('[data-delete-hist]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-delete-hist');
+            const filtered = getSavedHistory().filter((h) => h.id !== id);
+            localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(filtered));
+            renderHistoryList();
+          });
+        });
+      }
+
+      // =========================================================================
+      // 11. UI SYNCHRONIZATION & EVENT BINDINGS
+      // =========================================================================
+      function updateTabButtonsUI() {
+        document.querySelectorAll('.output-tab-btn').forEach((btn) => {
+          const tab = btn.getAttribute('data-output-tab');
+          if (tab === state.activeTab) {
+            btn.className = 'output-tab-btn py-2 px-2 rounded-lg text-xs font-bold bg-white dark:bg-[#131824] text-brand-600 dark:text-brand-400 shadow-sm transition cursor-pointer';
+          } else {
+            btn.className = 'output-tab-btn py-2 px-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer';
+          }
+        });
+      }
+
+      function syncFormFromState() {
+        document.getElementById('size-preset').value = state.sizePreset;
+        document.getElementById('custom-size-panel').style.display = state.sizePreset === 'custom' ? 'block' : 'none';
+        document.getElementById('custom-width').value = state.customWidth;
+        document.getElementById('custom-height').value = state.customHeight;
+        document.getElementById('custom-unit').value = state.customUnit;
+
+        const dimInfo = getDimensionInfo();
+        document.getElementById('header-ratio-pill').textContent = `${dimInfo.ratio} (${dimInfo.dim})`;
+        document.getElementById('custom-ratio-display').textContent = dimInfo.ratio;
+
+        // Platform Cards
+        document.querySelectorAll('.ai-platform-card').forEach((card) => {
+          const isSelected = card.getAttribute('data-ai-platform') === state.aiPlatform;
+          const dot = card.querySelector('.indicator');
+          if (isSelected) {
+            card.className = 'ai-platform-card text-left p-3 rounded-xl border-2 border-brand-500 bg-brand-500/10 transition cursor-pointer';
+            if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-brand-500 indicator';
+          } else {
+            card.className = 'ai-platform-card text-left p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 transition cursor-pointer';
+            if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 indicator';
+          }
+        });
+
+        // Content Inputs
+        document.getElementById('headline-input').value = state.headline;
+        document.getElementById('subheadline-input').value = state.subheadline;
+        document.getElementById('cta-badge-input').value = state.ctaBadge;
+        document.getElementById('contact-info-input').value = state.contactInfo;
+        document.getElementById('design-style').value = state.designStyle;
+        document.getElementById('typography-style').value = state.typographyStyle;
+        document.getElementById('visual-object').value = state.visualObject;
+        document.getElementById('lighting-mood').value = state.lightingMood;
+        document.getElementById('sketch-mode-toggle').checked = Boolean(state.sketchMode);
+
+        // Layout Cards
+        document.querySelectorAll('.layout-card').forEach((card) => {
+          const isSelected = card.getAttribute('data-layout') === state.layout;
+          if (isSelected) {
+            card.className = 'layout-card p-3 rounded-xl border-2 border-brand-500 bg-brand-500/10 text-left transition cursor-pointer';
+          } else {
+            card.className = 'layout-card p-3 rounded-xl border border-slate-200 dark:border-[#263044] bg-slate-50 dark:bg-[#1a2132] hover:border-brand-500/60 text-left transition cursor-pointer';
+          }
+        });
+
+        // Colors
+        document.getElementById('color-primary').value = state.colorPrimary;
+        document.getElementById('color-primary-hex').value = state.colorPrimary.toUpperCase();
+        document.getElementById('color-primary-name').textContent = describeHexColor(state.colorPrimary);
+
+        document.getElementById('color-accent').value = state.colorAccent;
+        document.getElementById('color-accent-hex').value = state.colorAccent.toUpperCase();
+        document.getElementById('color-accent-name').textContent = describeHexColor(state.colorAccent);
+
+        document.getElementById('color-bg').value = state.colorBg;
+        document.getElementById('color-bg-hex').value = state.colorBg.toUpperCase();
+        document.getElementById('color-bg-name').textContent = describeHexColor(state.colorBg);
+
+        renderAll();
+      }
+
+      function renderAll() {
+        const dimInfo = getDimensionInfo();
+        document.getElementById('header-ratio-pill').textContent = `${dimInfo.ratio} (${dimInfo.dim})`;
+        document.getElementById('custom-ratio-display').textContent = dimInfo.ratio;
+
+        renderReferencePhotosList();
+        renderWireframe();
+        renderOutputAttachedPhotos();
+        renderPromptOutput();
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem(STORAGE_KEYS.THEME);
+        if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      }
+
+      function bindAllEvents() {
+        // 1) Header Buttons (Pengaturan, Riwayat, Theme)
+        const btnOpenSettings = document.getElementById('btnOpenSettings');
+        if (btnOpenSettings) {
+          btnOpenSettings.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.openSettingsModal();
+          });
+        }
+
+        const btnOpenHistory = document.getElementById('btnOpenHistory');
+        if (btnOpenHistory) {
+          btnOpenHistory.addEventListener('click', () => {
+            renderHistoryList();
+            document.getElementById('historyDrawer').style.display = 'block';
+          });
+        }
+
+        document.getElementById('close-history-btn').addEventListener('click', () => {
+          document.getElementById('historyDrawer').style.display = 'none';
+        });
+        document.getElementById('history-backdrop').addEventListener('click', () => {
+          document.getElementById('historyDrawer').style.display = 'none';
+        });
+
+        let clearConfirmTimeout = null;
+        const clearHistBtn = document.getElementById('clear-history-btn');
+        clearHistBtn.addEventListener('click', () => {
+          if (clearHistBtn.dataset.confirming === 'true') {
+            localStorage.removeItem(STORAGE_KEYS.HISTORY);
+            renderHistoryList();
+            clearHistBtn.dataset.confirming = 'false';
+            clearHistBtn.textContent = 'Hapus Semua Riwayat';
+            showToast('Semua riwayat berhasil dihapus.');
+          } else {
+            clearHistBtn.dataset.confirming = 'true';
+            clearHistBtn.textContent = 'Klik lagi untuk konfirmasi hapus';
+            clearTimeout(clearConfirmTimeout);
+            clearConfirmTimeout = setTimeout(() => {
+              clearHistBtn.dataset.confirming = 'false';
+              clearHistBtn.textContent = 'Hapus Semua Riwayat';
+            }, 3500);
+          }
+        });
+
+        document.getElementById('btnThemeToggle').addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
+        });
+
+        // Escape Key closes Modals & Drawers
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            window.closeSettingsModal();
+            closeLightbox();
+            document.getElementById('historyDrawer').style.display = 'none';
+          }
+        });
+
+        // 2) Quick Presets Bar
+        document.querySelectorAll('.quick-preset-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const key = btn.getAttribute('data-quick-preset');
+            if (QUICK_PRESETS[key]) {
+              Object.assign(state, QUICK_PRESETS[key]);
+              state.polishedText = null;
+              syncFormFromState();
+              showToast(`Preset "${btn.textContent.trim()}" diterapkan!`);
+            }
+          });
+        });
+
+        // 3) AI Smart Brief
+        document.getElementById('smart-brief-btn').addEventListener('click', handleSmartBrief);
+        document.getElementById('smart-brief-input').addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSmartBrief();
+          }
+        });
+        document.querySelectorAll('.brief-example-chip').forEach((chip) => {
+          chip.addEventListener('click', () => {
+            document.getElementById('smart-brief-input').value = chip.getAttribute('data-brief-example');
+            handleSmartBrief();
+          });
+        });
+
+        // 4) Card 01: Size & AI Platform
+        document.getElementById('size-preset').addEventListener('change', (e) => {
+          state.sizePreset = e.target.value;
+          document.getElementById('custom-size-panel').style.display = state.sizePreset === 'custom' ? 'block' : 'none';
+          state.polishedText = null;
+          renderAll();
+        });
+
+        ['custom-width', 'custom-height', 'custom-unit'].forEach((id) => {
+          document.getElementById(id).addEventListener('input', (e) => {
+            if (id === 'custom-width') state.customWidth = e.target.value;
+            if (id === 'custom-height') state.customHeight = e.target.value;
+            if (id === 'custom-unit') state.customUnit = e.target.value;
+            state.polishedText = null;
+            renderAll();
+          });
+        });
+
+        document.querySelectorAll('.ai-platform-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            state.aiPlatform = card.getAttribute('data-ai-platform');
+            state.polishedText = null;
+            syncFormFromState();
+          });
+        });
+
+        // 5) Card 02: Content Hierarchy & Headline AI
+        document.getElementById('ai-headline-btn').addEventListener('click', handleGenerateHeadlines);
+        document.getElementById('close-headline-suggestions').addEventListener('click', () => {
+          document.getElementById('headline-suggestions-box').style.display = 'none';
+        });
+
+        const textBindings = [
+          ['headline-input', 'headline'],
+          ['subheadline-input', 'subheadline'],
+          ['cta-badge-input', 'ctaBadge'],
+          ['contact-info-input', 'contactInfo'],
+          ['visual-object', 'visualObject']
+        ];
+        textBindings.forEach(([elId, stateKey]) => {
+          document.getElementById(elId).addEventListener('input', (e) => {
+            state[stateKey] = e.target.value;
+            state.polishedText = null;
+            renderWireframe();
+            renderPromptOutput();
+          });
+        });
+
+        // 6) Card 03: Style, Typography, Multi-Upload Photos & Layout
+        document.getElementById('design-style').addEventListener('change', (e) => {
+          state.designStyle = e.target.value;
+          state.polishedText = null;
+          renderPromptOutput();
+        });
+
+        document.getElementById('typography-style').addEventListener('change', (e) => {
+          state.typographyStyle = e.target.value;
+          state.polishedText = null;
+          renderPromptOutput();
+        });
+
+        const photoInput = document.getElementById('reference-photo-input');
+        const dropzone = document.getElementById('photo-dropzone');
+
+        dropzone.addEventListener('click', () => photoInput.click());
+        dropzone.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            photoInput.click();
+          }
+        });
+        document.getElementById('add-more-photos-btn').addEventListener('click', () => photoInput.click());
+        document.getElementById('clear-all-photos-btn').addEventListener('click', () => {
+          state.referencePhotos = [];
+          state.polishedText = null;
+          renderAll();
+          showToast('Semua foto referensi dihapus.');
+        });
+
+        photoInput.addEventListener('change', (e) => {
+          handlePhotoFiles(e.target.files);
+          photoInput.value = '';
+        });
+
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropzone.classList.add('border-brand-500', 'bg-brand-500/10');
+        });
+        dropzone.addEventListener('dragleave', () => {
+          dropzone.classList.remove('border-brand-500', 'bg-brand-500/10');
+        });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('border-brand-500', 'bg-brand-500/10');
+          if (e.dataTransfer && e.dataTransfer.files) {
+            handlePhotoFiles(e.dataTransfer.files);
+          }
+        });
+
+        document.getElementById('close-lightbox-btn').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxBackdrop').addEventListener('click', closeLightbox);
+
+        document.querySelectorAll('.layout-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            state.layout = card.getAttribute('data-layout');
+            state.polishedText = null;
+            syncFormFromState();
+          });
+        });
+
+        // 7) Card 04: Colors, Lighting & Sketch Mode
+        document.querySelectorAll('.palette-preset-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const [p, a, b] = btn.getAttribute('data-palette').split(',');
+            state.colorPrimary = p;
+            state.colorAccent = a;
+            state.colorBg = b;
+            state.polishedText = null;
+            syncFormFromState();
+          });
+        });
+
+        const colorPairs = [
+          ['color-primary', 'color-primary-hex', 'color-primary-name', 'colorPrimary'],
+          ['color-accent', 'color-accent-hex', 'color-accent-name', 'colorAccent'],
+          ['color-bg', 'color-bg-hex', 'color-bg-name', 'colorBg']
+        ];
+        colorPairs.forEach(([pickerId, hexId, nameId, stateKey]) => {
+          const picker = document.getElementById(pickerId);
+          const hexInput = document.getElementById(hexId);
+          const nameEl = document.getElementById(nameId);
+
+          picker.addEventListener('input', (e) => {
+            const val = e.target.value;
+            state[stateKey] = val;
+            hexInput.value = val.toUpperCase();
+            nameEl.textContent = describeHexColor(val);
+            state.polishedText = null;
+            renderWireframe();
+            renderPromptOutput();
+          });
+
+          hexInput.addEventListener('input', (e) => {
+            let val = e.target.value.trim();
+            if (!val.startsWith('#')) val = '#' + val;
+            if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+              state[stateKey] = val;
+              picker.value = val;
+              nameEl.textContent = describeHexColor(val);
+              state.polishedText = null;
+              renderWireframe();
+              renderPromptOutput();
+            }
+          });
+        });
+
+        document.getElementById('lighting-mood').addEventListener('change', (e) => {
+          state.lightingMood = e.target.value;
+          state.polishedText = null;
+          renderPromptOutput();
+        });
+
+        document.getElementById('sketch-mode-toggle').addEventListener('change', (e) => {
+          state.sketchMode = e.target.checked;
+          state.polishedText = null;
+          renderWireframe();
+          renderPromptOutput();
+        });
+
+        // 8) Right Panel: Tabs & Action Buttons
+        document.querySelectorAll('.output-tab-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.activeTab = btn.getAttribute('data-output-tab');
+            updateTabButtonsUI();
+            renderPromptOutput();
+          });
+        });
+
+        document.getElementById('revert-polish-btn').addEventListener('click', () => {
+          state.polishedText = null;
+          renderPromptOutput();
+          showToast('Dikembalikan ke prompt standar.');
+        });
+
+        document.getElementById('copy-prompt-btn').addEventListener('click', () => {
+          const text = getCurrentOutputText();
+          copyTextToClipboard(text);
+          const btnText = document.getElementById('copy-btn-text');
+          btnText.textContent = 'Tersalin!';
+          showToast('Prompt berhasil disalin ke clipboard!');
+          setTimeout(() => {
+            btnText.textContent = 'Salin';
+          }, 1800);
+        });
+
+        document.getElementById('polish-prompt-btn').addEventListener('click', handlePolishPrompt);
+
+        document.getElementById('download-txt-btn').addEventListener('click', () => {
+          const text = getCurrentOutputText();
+          const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `prompt-banner-${Date.now()}.txt`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('File .TXT berhasil diunduh!');
+        });
+
+        document.getElementById('save-history-btn').addEventListener('click', saveCurrentToHistory);
+
+        document.getElementById('copy-ref-list-btn').addEventListener('click', () => {
+          if (!state.referencePhotos.length) return;
+          const summary = state.referencePhotos
+            .map((p, idx) => `Foto #${idx + 1}: ${p.name} [${p.role}] — ${p.note}`)
+            .join('\n');
+          copyTextToClipboard(summary);
+          showToast('Daftar referensi foto disalin!');
+        });
+      }
+
+      // =========================================================================
+      // 12. BOOT APPLICATION ON DOMContentLoaded
+      // =========================================================================
+      window.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        loadInitialSettings();
+        bindAllEvents();
+        renderHistoryList();
+        syncFormFromState();
+      });
+    })();
+  </script>
+</body>
+</html>
