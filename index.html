@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt Studio — BANNER PRO | Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI</title>
+  <title>Prompt Studio — BANNER PRO | DESIGN BY MAHE</title>
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,12 +27,6 @@
               500: '#f59e0b',
               600: '#d97706',
               700: '#b45309',
-            },
-            studio: {
-              bg: '#0b0e14',
-              card: '#131824',
-              surface: '#1a2132',
-              border: '#263044',
             }
           }
         }
@@ -41,7 +35,6 @@
   </script>
 
   <style>
-    /* Custom Scrollbar & Utility Styles */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -64,12 +57,12 @@
       scrollbar-width: none;
     }
 
-    /* Blueprint Grid Pattern for Live Wireframe Stage */
+    /* Blueprint Grid Pattern untuk Live Wireframe Stage */
     .wireframe-grid {
       background-size: 16px 16px;
       background-image:
-        linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+        linear-gradient(to right, rgba(148, 163, 184, 0.09) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.09) 1px, transparent 1px);
     }
     .dark .wireframe-grid {
       background-image:
@@ -103,14 +96,14 @@
 <body class="bg-slate-50 text-slate-900 dark:bg-[#0b0e14] dark:text-slate-100 font-sans antialiased transition-colors duration-200 selection:bg-brand-500/30 selection:text-brand-400">
 
   <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed bottom-5 right-5 z-[70] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[80] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
 
   <!-- ======================================================================= -->
-  <!-- MODAL PENGATURAN (#settingsModal) — Explicit style="display: none;"     -->
+  <!-- MODAL PENGATURAN (#settingsModal)                                       -->
   <!-- ======================================================================= -->
-  <div id="settingsModal" style="display: none;" class="fixed inset-0 z-[60] items-center justify-center p-4">
+  <div id="settingsModal" style="display: none;" class="fixed inset-0 z-[70] items-center justify-center p-4">
     <!-- Backdrop -->
-    <div id="settingsModalBackdrop" onclick="window.closeSettingsModal()" class="fixed inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div id="settingsModalBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm"></div>
 
     <!-- Modal Card -->
     <div role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle" class="relative z-10 w-full max-w-md rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] shadow-2xl overflow-hidden">
@@ -125,10 +118,10 @@
           </div>
           <div>
             <h3 id="settingsModalTitle" class="font-bold text-base">Pengaturan Studio</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Ganti logo pojok kiri atas &amp; atur API Key Gemini</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Kustomisasi logo pojok kiri atas &amp; API Key Gemini</p>
           </div>
         </div>
-        <button id="btnCloseSettingsX" onclick="window.closeSettingsModal()" type="button" aria-label="Tutup Pengaturan" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#1a2132] transition cursor-pointer">
+        <button id="btnCloseSettingsX" type="button" aria-label="Tutup Pengaturan" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#1a2132] transition cursor-pointer">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -137,13 +130,13 @@
 
       <!-- Modal Body -->
       <div class="p-5 space-y-5">
-        <!-- Bagian A: Kolom URL Gambar Logo (Pojok Kiri Atas) -->
+        <!-- Bagian A: URL Gambar Logo -->
         <div class="space-y-2">
           <div class="flex items-center justify-between gap-2">
             <label for="inputLogoUrl" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
               URL Gambar Logo (Pojok Kiri Atas)
             </label>
-            <button id="btnResetLogoDefault" onclick="window.resetLogoToDefault()" type="button" class="px-2 py-0.5 rounded text-[11px] font-bold text-brand-600 dark:text-brand-400 hover:bg-brand-500/15 transition cursor-pointer">
+            <button id="btnResetLogoDefault" type="button" class="px-2 py-0.5 rounded text-[11px] font-bold text-brand-600 dark:text-brand-400 hover:bg-brand-500/15 transition cursor-pointer">
               Reset Default
             </button>
           </div>
@@ -161,13 +154,12 @@
             <input
               id="inputLogoUrl"
               type="url"
-              oninput="window.previewSettingsLogo(this.value)"
               placeholder="https://domain-anda.com/logo.png"
               class="flex-1 min-w-0 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition"
             />
           </div>
           <p class="text-[11px] text-slate-500 dark:text-slate-400">
-            Tempel URL langsung gambar logo yang sudah dihosting (PNG, JPG, WEBP, SVG). Klik <strong>Reset Default</strong> untuk kembali ke ikon bawaan.
+            Tempel URL langsung gambar logo (PNG, JPG, WEBP, SVG). Klik <strong>Reset Default</strong> untuk kembali ke ikon bawaan.
           </p>
         </div>
 
@@ -185,12 +177,11 @@
               id="inputGeminiApiKey"
               type="password"
               autocomplete="off"
-              placeholder="Masukkan Gemini API Key (AIzaSy...)"
+              placeholder="AIzaSy... atau AQ.Ab8..."
               class="w-full pl-3.5 pr-11 py-2.5 rounded-xl font-mono text-xs sm:text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition"
             />
             <button
               id="btnToggleApiKeyVis"
-              onclick="window.toggleApiKeyVisibility()"
               type="button"
               aria-label="Tampilkan atau Sembunyikan API Key"
               class="absolute right-2 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#131824] transition cursor-pointer"
@@ -205,21 +196,21 @@
             </button>
           </div>
           <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-            Disimpan aman di <code class="font-mono text-brand-500">localStorage</code> browser Anda untuk mengaktifkan <strong>AI Smart Brief</strong>, <strong>Ide Headline AI</strong>, dan <strong>Poles AI</strong> (<code class="font-mono">gemini-2.5-flash</code>).
+            Mendukung otomatis key <strong>AI Studio (<code class="font-mono text-brand-500">AIzaSy...</code>)</strong> maupun <strong>Vertex AI (<code class="font-mono text-brand-500">AQ.</code>)</strong>. Tersimpan di <code class="font-mono">localStorage</code> browser Anda.
           </p>
         </div>
       </div>
 
       <!-- Modal Footer -->
       <div class="px-5 py-4 bg-slate-50/70 dark:bg-[#0b0e14]/70 border-t border-slate-200 dark:border-[#263044] flex items-center justify-end gap-2.5">
-        <button id="btnCancelSettings" onclick="window.closeSettingsModal()" type="button" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-[#1a2132] transition cursor-pointer">
+        <button id="btnCancelSettings" type="button" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-[#1a2132] transition cursor-pointer">
           Batal
         </button>
-        <button id="btnSaveSettings" onclick="window.saveSettings()" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 shadow-md shadow-brand-500/20 transition cursor-pointer">
+        <button id="btnSaveSettings" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 shadow-md shadow-brand-500/20 transition cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          <span>Save</span>
+          <span>Simpan Pengaturan</span>
         </button>
       </div>
     </div>
@@ -228,7 +219,7 @@
   <!-- ======================================================================= -->
   <!-- IMAGE LIGHTBOX MODAL (Preview Besar Foto Referensi)                     -->
   <!-- ======================================================================= -->
-  <div id="imageLightboxModal" style="display: none;" class="fixed inset-0 z-[60] items-center justify-center p-4">
+  <div id="imageLightboxModal" style="display: none;" class="fixed inset-0 z-[70] items-center justify-center p-4">
     <div id="lightboxBackdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
     <div class="relative z-10 max-w-2xl w-full rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] shadow-2xl overflow-hidden">
       <div class="px-4 py-3 border-b border-slate-200 dark:border-[#263044] flex items-center justify-between gap-3">
@@ -259,7 +250,7 @@
   <!-- ======================================================================= -->
   <!-- SLIDE-OVER HISTORY DRAWER (#historyDrawer)                              -->
   <!-- ======================================================================= -->
-  <div id="historyDrawer" style="display: none;" class="fixed inset-0 z-[55]">
+  <div id="historyDrawer" style="display: none;" class="fixed inset-0 z-[65]">
     <div id="history-backdrop" class="fixed inset-0 bg-black/65 backdrop-blur-sm transition-opacity"></div>
     <div class="fixed inset-y-0 right-0 max-w-md w-full bg-white dark:bg-[#131824] border-l border-slate-200 dark:border-[#263044] shadow-2xl flex flex-col z-10">
       <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-[#263044] flex items-center justify-between">
@@ -281,9 +272,7 @@
         </button>
       </div>
 
-      <div id="history-list" class="flex-1 overflow-y-auto p-4 space-y-3">
-        <!-- Populated dynamically via JS -->
-      </div>
+      <div id="history-list" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
 
       <div class="p-4 border-t border-slate-200 dark:border-[#263044] flex items-center justify-between gap-3">
         <span id="history-count-label" class="text-xs font-mono text-slate-500 dark:text-slate-400">0 item</span>
@@ -299,9 +288,9 @@
   <!-- ======================================================================= -->
   <header class="sticky top-0 z-40 bg-white/90 dark:bg-[#0b0e14]/90 backdrop-blur-md border-b border-slate-200 dark:border-[#263044]">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
-      <div class="h-16 flex items-center justify-between gap-3">
-        <!-- Kiri: #brandLogoContainer -->
-        <div id="brandLogoContainer" class="flex items-center gap-3 shrink-0 min-w-0">
+      <div class="min-h-[64px] py-2 flex items-center justify-between gap-3">
+        <!-- Kiri: Logo Kustom + Judul + Badge BANNER PRO + Badge DESIGN BY MAHE -->
+        <div id="brandLogoContainer" class="flex items-center gap-3 min-w-0">
           <div id="brandLogoBox" class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20 overflow-hidden shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
               <rect x="3" y="5" width="18" height="14" rx="2.5" />
@@ -310,24 +299,26 @@
             </svg>
           </div>
           <div class="min-w-0">
-            <div class="flex items-center gap-2">
-              <span class="font-extrabold text-base sm:text-lg tracking-tight truncate">Prompt Studio</span>
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span class="font-extrabold text-base sm:text-lg tracking-tight">Prompt Studio</span>
               <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 shrink-0">
+                BANNER PRO
+              </span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md bg-slate-200/80 dark:bg-[#1a2132] text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-[#263044] shrink-0">
                 DESIGN BY MAHE
               </span>
             </div>
-            <p class="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <p class="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
               Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI
             </p>
           </div>
         </div>
 
-        <!-- Kanan Header (Urut Kiri -> Kanan): Pengaturan, Riwayat, Toggle Theme -->
+        <!-- Kanan Header: Pengaturan (kiri) -> Riwayat (tengah) -> Toggle Tema (kanan) -->
         <div class="flex items-center gap-2 shrink-0">
-          <!-- 1) Tombol Pengaturan (Sebelah Kiri Tombol Riwayat) -->
+          <!-- 1) Tombol Pengaturan -->
           <button
             id="btnOpenSettings"
-            onclick="window.openSettingsModal()"
             type="button"
             title="Pengaturan Logo & API Key Gemini"
             class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-[#131824] dark:hover:bg-[#1a2132] border border-slate-200 dark:border-[#263044] transition cursor-pointer"
@@ -336,7 +327,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
-            <span>Pengaturan</span>
+            <span class="hidden md:inline">Pengaturan</span>
             <span id="settingsApiBadge" style="display: none;" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="API Key Gemini Tersimpan"></span>
           </button>
 
@@ -349,7 +340,7 @@
             <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Riwayat</span>
+            <span class="hidden sm:inline">Riwayat</span>
             <span id="history-badge" class="px-1.5 py-0.2 text-[11px] font-mono font-bold rounded-full bg-brand-500 text-slate-950">0</span>
           </button>
 
@@ -559,14 +550,22 @@
           </div>
         </section>
 
-        <!-- CARD 02 — Konten Teks & Hirarki Informasi -->
+        <!-- CARD 02 — Konten & Hirarki Teks Banner -->
         <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
           <div class="flex items-center gap-3 border-b border-slate-200 dark:border-[#263044] pb-3.5">
             <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">02</span>
             <div>
-              <h3 class="font-bold text-base">Konten Teks &amp; Hirarki Informasi</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Susun hirarki teks utama, sub-headline, detail promo/harga, dan kontak</p>
+              <h3 class="font-bold text-base">Konten &amp; Hirarki Teks Banner</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Nama brand, headline, badge promo, kontak, objek utama &amp; mode coretan</p>
             </div>
+          </div>
+
+          <!-- Nama Brand / Usaha -->
+          <div>
+            <label for="brand-name-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Nama Brand / Toko / Penyelenggara
+            </label>
+            <input id="brand-name-input" type="text" value="WARUNG GEPREK JUARA" placeholder="Contoh: Kopi Kenangan Senja / Toko Elektronik Maju" class="w-full px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
           </div>
 
           <!-- Headline Utama + Ide Headline AI -->
@@ -603,10 +602,10 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Detail Promo / Harga / Badge CTA -->
+            <!-- Badge Promo / CTA -->
             <div>
               <label for="cta-badge-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-                Detail Promo / Harga / CTA
+                Badge Promo / Harga / CTA
               </label>
               <input id="cta-badge-input" type="text" value="GRATIS ES TEH MANIS!" placeholder="Contoh: PESAN SEKARANG • DISKON 50%" class="w-full px-3.5 py-3 rounded-xl text-sm font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
             </div>
@@ -614,10 +613,39 @@
             <!-- Info Kontak / Alamat / Akun Sosmed -->
             <div>
               <label for="contact-info-input" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-                Info Kontak / Alamat / Sosmed
+                Info Kontak / Alamat / CTA Bawah
               </label>
               <input id="contact-info-input" type="text" value="WA: 0812-3456-7890 • Jl. Raya Merdeka No. 45 • @ayamgeprekjuara" placeholder="Contoh: WA: 0812-xxxx • IG: @brandanda" class="w-full px-3.5 py-3 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition" />
             </div>
+          </div>
+
+          <!-- Objek Utama / Produk Hero -->
+          <div>
+            <label for="visual-object" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Objek Utama / Produk Hero &amp; Latar Belakang
+            </label>
+            <textarea id="visual-object" rows="3" placeholder="Contoh: Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal cabai rawit merah melimpah..." class="w-full px-3.5 py-2.5 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal bawang cabai rawit merah segar melimpah, lalapan timun, dan kepulan asap hangat, foto food photography komersial profesional.</textarea>
+          </div>
+
+          <!-- Toggle Mode Coretan / Sketch-to-Banner -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex items-center justify-between gap-4">
+            <div class="flex items-start gap-3">
+              <div class="p-2 rounded-lg bg-brand-500/15 text-brand-500 mt-0.5 shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </div>
+              <div>
+                <label for="sketch-mode-toggle" class="font-bold text-sm cursor-pointer">Mode Coretan / Sketch-to-Banner</label>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Tambahkan instruksi transformasi sketsa kasar/wireframe gambar menjadi desain banner final profesional.
+                </p>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+              <input id="sketch-mode-toggle" type="checkbox" class="sr-only peer" />
+              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-500"></div>
+            </label>
           </div>
         </section>
 
@@ -627,43 +655,59 @@
             <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">03</span>
             <div>
               <h3 class="font-bold text-base">Gaya Visual, Tipografi &amp; Komposisi</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Atur arah artistik, karakter huruf, foto referensi, dan tata letak</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Atur arah artistik, karakter huruf, foto referensi, tata letak &amp; palet warna</p>
             </div>
           </div>
 
-          <!-- GAYA DESAIN -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- GAYA DESAIN -->
+            <div>
+              <label for="design-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+                GAYA DESAIN
+              </label>
+              <select id="design-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+                <option value="Bold Kuliner Menggugah Selera">Bold Kuliner Menggugah Selera</option>
+                <option value="Modern Minimalis Korporat">Modern Minimalis Korporat</option>
+                <option value="Festive Promo & Diskon Retail">Festive Promo &amp; Diskon Retail</option>
+                <option value="Elegan Mewah & Eksklusif">Elegan Mewah &amp; Eksklusif</option>
+                <option value="Enerjik Sport & Event">Enerjik Sport &amp; Event</option>
+                <option value="Islami / Religi & Komunitas">Islami / Religi &amp; Komunitas</option>
+                <option value="3D Render & Futuristik">3D Render &amp; Futuristik</option>
+                <option value="Ilustrasi Vektor Flat & Playful">Ilustrasi Vektor Flat &amp; Playful</option>
+              </select>
+            </div>
+
+            <!-- GAYA TIPOGRAFI -->
+            <div>
+              <label for="typography-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+                GAYA TIPOGRAFI
+              </label>
+              <select id="typography-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+                <option value="Bold Impact Sans-Serif">Bold Impact Sans-Serif</option>
+                <option value="Modern Geometric Clean">Modern Geometric Clean</option>
+                <option value="Elegant Luxury Serif">Elegant Luxury Serif</option>
+                <option value="Handwritten / Brush Script">Handwritten / Brush Script</option>
+                <option value="3D Extruded & Metallic Promo">3D Extruded &amp; Metallic Promo</option>
+                <option value="Playful Rounded Display">Playful Rounded Display</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pencahayaan & Suasana -->
           <div>
-            <label for="design-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-              GAYA DESAIN
+            <label for="lighting-mood" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
+              Pencahayaan &amp; Suasana
             </label>
-            <select id="design-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
-              <option value="Bold Kuliner Menggugah Selera">Bold Kuliner Menggugah Selera</option>
-              <option value="Modern Minimalis Korporat">Modern Minimalis Korporat</option>
-              <option value="Festive Promo & Diskon Retail">Festive Promo &amp; Diskon Retail</option>
-              <option value="Elegan Mewah & Eksklusif">Elegan Mewah &amp; Eksklusif</option>
-              <option value="Enerjik Sport & Event">Enerjik Sport &amp; Event</option>
-              <option value="Islami / Religi & Komunitas">Islami / Religi &amp; Komunitas</option>
-              <option value="3D Render & Futuristik">3D Render &amp; Futuristik</option>
-              <option value="Ilustrasi Vektor Flat & Playful">Ilustrasi Vektor Flat &amp; Playful</option>
+            <select id="lighting-mood" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
+              <option value="Studio Komersial Terang & Tajam">Studio Komersial Terang &amp; Tajam</option>
+              <option value="Dramatis Rim Light & Kontras Tinggi">Dramatis Rim Light &amp; Kontras Tinggi</option>
+              <option value="Hangat Golden Hour & Menggugah Selera">Hangat Golden Hour &amp; Menggugah Selera</option>
+              <option value="Neon Nightlife & Sorot Panggung">Neon Nightlife &amp; Sorot Panggung</option>
+              <option value="Soft Daylight Bersih & Natural">Soft Daylight Bersih &amp; Natural</option>
             </select>
           </div>
 
-          <!-- GAYA TIPOGRAFI -->
-          <div>
-            <label for="typography-style" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-              GAYA TIPOGRAFI
-            </label>
-            <select id="typography-style" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
-              <option value="Bold Impact Sans-Serif">Bold Impact Sans-Serif</option>
-              <option value="Modern Geometric Clean">Modern Geometric Clean</option>
-              <option value="Elegant Luxury Serif">Elegant Luxury Serif</option>
-              <option value="Handwritten / Brush Script">Handwritten / Brush Script</option>
-              <option value="3D Extruded & Metallic Promo">3D Extruded &amp; Metallic Promo</option>
-              <option value="Playful Rounded Display">Playful Rounded Display</option>
-            </select>
-          </div>
-
-          <!-- MULTI-UPLOAD REFERENSI FOTO (Tepat di bawah Gaya Tipografi) -->
+          <!-- MULTI-UPLOAD REFERENSI FOTO -->
           <div class="pt-1 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-2">
@@ -704,7 +748,7 @@
                 Seret &amp; lepas foto ke sini, atau <span class="text-brand-600 dark:text-brand-400 underline">Pilih File Gambar</span>
               </p>
               <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                Dapat mengunggah banyak foto sekaligus (Foto Orang/Model, Foto Produk, Logo Brand, Kemasan, Background)
+                Unggah banyak foto sekaligus (Foto Orang/Model, Produk, Logo Brand, Kemasan, Background)
               </p>
             </div>
 
@@ -769,22 +813,11 @@
               </button>
             </div>
           </div>
-        </section>
 
-        <!-- CARD 04 — Palet Warna, Objek Hero & Mode Coretan -->
-        <section class="rounded-2xl bg-white dark:bg-[#131824] border border-slate-200 dark:border-[#263044] p-5 sm:p-6 shadow-sm space-y-5">
-          <div class="flex items-center gap-3 border-b border-slate-200 dark:border-[#263044] pb-3.5">
-            <span class="w-7 h-7 rounded-lg bg-brand-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">04</span>
-            <div>
-              <h3 class="font-bold text-base">Palet Warna, Objek Hero &amp; Mode Coretan</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Kombinasi warna kontras tinggi, objek utama/background, dan sketch mode</p>
-            </div>
-          </div>
-
-          <!-- Preset Palet Warna -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
-              Preset Palet Warna
+          <!-- Palet Warna Brand -->
+          <div class="pt-2 border-t border-slate-200 dark:border-[#263044] space-y-3">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+              Palet Warna Brand
             </label>
             <div class="flex flex-wrap gap-2">
               <button type="button" data-palette="#dc2626,#facc15,#18181b" class="palette-preset-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] hover:border-brand-500 transition cursor-pointer">
@@ -832,85 +865,42 @@
                 Vibrant TikTok Promo
               </button>
             </div>
-          </div>
 
-          <!-- 3 Color Pickers -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Utama</label>
-              <div class="flex items-center gap-2.5">
-                <input id="color-primary" type="color" value="#dc2626" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
-                <div class="min-w-0 flex-1">
-                  <input id="color-primary-hex" type="text" value="#DC2626" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
-                  <p id="color-primary-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Merah Cerah Menyala</p>
+            <!-- 3 Color Pickers -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Utama</label>
+                <div class="flex items-center gap-2.5">
+                  <input id="color-primary" type="color" value="#dc2626" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                  <div class="min-w-0 flex-1">
+                    <input id="color-primary-hex" type="text" value="#DC2626" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                    <p id="color-primary-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Merah Cerah Menyala</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Aksen</label>
+                <div class="flex items-center gap-2.5">
+                  <input id="color-accent" type="color" value="#facc15" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                  <div class="min-w-0 flex-1">
+                    <input id="color-accent-hex" type="text" value="#FACC15" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                    <p id="color-accent-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Kuning Emas Cerah</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Latar</label>
+                <div class="flex items-center gap-2.5">
+                  <input id="color-bg" type="color" value="#18181b" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
+                  <div class="min-w-0 flex-1">
+                    <input id="color-bg-hex" type="text" value="#18181B" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
+                    <p id="color-bg-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Hitam Pekat</p>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Aksen</label>
-              <div class="flex items-center gap-2.5">
-                <input id="color-accent" type="color" value="#facc15" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
-                <div class="min-w-0 flex-1">
-                  <input id="color-accent-hex" type="text" value="#FACC15" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
-                  <p id="color-accent-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Kuning Emas Cerah</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044]">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Warna Latar</label>
-              <div class="flex items-center gap-2.5">
-                <input id="color-bg" type="color" value="#18181b" class="w-10 h-10 rounded-lg cursor-pointer shrink-0" />
-                <div class="min-w-0 flex-1">
-                  <input id="color-bg-hex" type="text" value="#18181B" maxlength="7" class="w-full font-mono text-xs font-bold uppercase bg-transparent border-b border-slate-300 dark:border-slate-600 focus:outline-none focus:border-brand-500 pb-0.5" />
-                  <p id="color-bg-name" class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-1">Hitam Pekat</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Deskripsi Objek Utama / Background -->
-          <div>
-            <label for="visual-object" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-              Deskripsi Objek Utama / Hero &amp; Background
-            </label>
-            <textarea id="visual-object" rows="3" placeholder="Contoh: Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal cabai rawit merah melimpah..." class="w-full px-3.5 py-2.5 rounded-xl text-sm bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">Seporsi ayam geprek krispi keemasan di atas cobek batu tradisional dengan sambal bawang cabai rawit merah segar melimpah, lalapan timun, dan kepulan asap hangat, foto food photography komersial profesional.</textarea>
-          </div>
-
-          <!-- Pencahayaan & Suasana -->
-          <div>
-            <label for="lighting-mood" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">
-              Pencahayaan &amp; Suasana
-            </label>
-            <select id="lighting-mood" class="w-full px-3.5 py-3 rounded-xl text-sm font-medium bg-slate-50 dark:bg-[#1a2132] border border-slate-300 dark:border-[#263044] focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition">
-              <option value="Studio Komersial Terang & Tajam">Studio Komersial Terang &amp; Tajam</option>
-              <option value="Dramatis Rim Light & Kontras Tinggi">Dramatis Rim Light &amp; Kontras Tinggi</option>
-              <option value="Hangat Golden Hour & Menggugah Selera">Hangat Golden Hour &amp; Menggugah Selera</option>
-              <option value="Neon Nightlife & Sorot Panggung">Neon Nightlife &amp; Sorot Panggung</option>
-              <option value="Soft Daylight Bersih & Natural">Soft Daylight Bersih &amp; Natural</option>
-            </select>
-          </div>
-
-          <!-- Toggle Mode Coretan / Sketch-to-Banner -->
-          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex items-center justify-between gap-4">
-            <div class="flex items-start gap-3">
-              <div class="p-2 rounded-lg bg-brand-500/15 text-brand-500 mt-0.5 shrink-0">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-              </div>
-              <div>
-                <label for="sketch-mode-toggle" class="font-bold text-sm cursor-pointer">Mode Coretan / Sketch-to-Banner</label>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Tambahkan instruksi transformasi sketsa kasar/wireframe gambar menjadi desain banner final profesional.
-                </p>
-              </div>
-            </div>
-            <label class="relative inline-flex items-center cursor-pointer shrink-0">
-              <input id="sketch-mode-toggle" type="checkbox" class="sr-only peer" />
-              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-500"></div>
-            </label>
           </div>
         </section>
       </div>
@@ -940,9 +930,7 @@
               id="wireframe-canvas"
               style="aspect-ratio: 4 / 1; width: 100%; background: linear-gradient(135deg, #dc2626 0%, #18181b 100%);"
               class="relative rounded-lg shadow-xl border border-white/20 overflow-hidden transition-all duration-300 flex flex-col justify-between p-3 text-white"
-            >
-              <!-- Populated dynamically via renderWireframe() -->
-            </div>
+            ></div>
           </div>
 
           <!-- Palette Strip & Layout Info -->
@@ -1028,7 +1016,7 @@
                 <rect x="9" y="9" width="13" height="13" rx="2" />
                 <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
               </svg>
-              <span id="copy-btn-text">Salin</span>
+              <span id="copy-btn-text">Salin Prompt</span>
             </button>
 
             <button id="polish-prompt-btn" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 dark:bg-[#1a2132] dark:hover:bg-[#232c42] text-brand-400 border border-brand-500/40 transition cursor-pointer">
@@ -1051,7 +1039,7 @@
               <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
               </svg>
-              Simpan Riwayat
+              Simpan ke Riwayat
             </button>
           </div>
         </section>
@@ -1062,8 +1050,9 @@
 
   <!-- Footer -->
   <footer class="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 mt-6 border-t border-slate-200 dark:border-[#263044] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <span class="font-bold text-slate-700 dark:text-slate-200">Prompt Studio — BANNER PRO</span>
+      <span class="px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-500 font-mono text-[10px] font-bold">DESIGN BY MAHE</span>
       <span>•</span>
       <span>Studio Arsitek Prompt Spanduk, Baliho, Sosmed &amp; Banner Komersial AI</span>
     </div>
@@ -1073,7 +1062,7 @@
   </footer>
 
   <!-- ======================================================================= -->
-  <!-- MAIN JAVASCRIPT APPLICATION                                             -->
+  <!-- MAIN JAVASCRIPT APPLICATION (CLEAN, SELF-CONTAINED, ZERO SYNTAX ERRORS) -->
   <!-- ======================================================================= -->
   <script>
     (function () {
@@ -1089,8 +1078,6 @@
         THEME: 'prompt_studio_banner_pro_theme_v1'
       };
 
-      const GEMINI_MODEL = 'gemini-2.5-flash';
-
       const DEFAULT_HEADER_LOGO_SVG = `
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
           <rect x="3" y="5" width="18" height="14" rx="2.5" />
@@ -1102,7 +1089,17 @@
       // =========================================================================
       // 2. TOAST NOTIFICATION & SAFE CLIPBOARD HELPER
       // =========================================================================
-      function showToast(message, type = 'success') {
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showToast(message, type) {
+        const toastType = type || 'success';
         const container = document.getElementById('toast-container');
         if (!container) return;
 
@@ -1118,9 +1115,9 @@
           error: 'bg-red-400'
         };
 
-        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-medium transition-all duration-200 ${colors[type] || colors.success}`;
+        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-medium transition-all duration-200 ${colors[toastType] || colors.success}`;
         toast.innerHTML = `
-          <span class="w-2 h-2 rounded-full shrink-0 ${dotColors[type] || dotColors.success}"></span>
+          <span class="w-2 h-2 rounded-full shrink-0 ${dotColors[toastType] || dotColors.success}"></span>
           <span class="flex-1 leading-snug">${escapeHtml(message)}</span>
         `;
 
@@ -1129,7 +1126,7 @@
           toast.style.opacity = '0';
           toast.style.transform = 'translateY(6px)';
           setTimeout(() => toast.remove(), 220);
-        }, 3200);
+        }, 3800);
       }
 
       function copyTextToClipboard(text) {
@@ -1145,7 +1142,7 @@
           document.body.removeChild(tempArea);
           if (ok) return true;
         } catch (err) {
-          // Fallback below
+          // Fallback ke Clipboard API
         }
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1155,17 +1152,8 @@
         return false;
       }
 
-      function escapeHtml(str) {
-        return String(str || '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
       // =========================================================================
-      // 3. PENGATURAN LOGO POJOK KIRI ATAS & API KEY GEMINI (100% RELIABLE)
+      // 3. PENGATURAN LOGO POJOK KIRI ATAS & API KEY GEMINI
       // =========================================================================
       function applyHeaderLogoFromUrl(rawUrl) {
         const logoBox = document.getElementById('brandLogoBox');
@@ -1179,7 +1167,6 @@
           return;
         }
 
-        // Hapus gradient kuning (background transparan) & pasang <img /> dengan onerror fallback
         logoBox.className = 'w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden shrink-0 bg-transparent';
         logoBox.style.background = 'transparent';
         logoBox.innerHTML = '';
@@ -1196,7 +1183,7 @@
         logoBox.appendChild(img);
       }
 
-      window.previewSettingsLogo = function (rawUrl) {
+      function previewSettingsLogo(rawUrl) {
         const previewBox = document.getElementById('settingsLogoPreviewBox');
         if (!previewBox) return;
 
@@ -1222,7 +1209,7 @@
           previewBox.innerHTML = DEFAULT_HEADER_LOGO_SVG;
         };
         previewBox.appendChild(img);
-      };
+      }
 
       function refreshApiStatusIndicators() {
         const savedKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
@@ -1234,7 +1221,8 @@
         }
         if (statusText) {
           if (savedKey) {
-            statusText.textContent = 'Tersimpan (' + savedKey.slice(0, 6) + '...)';
+            const keyType = savedKey.startsWith('AQ.') ? 'Vertex AI' : 'AI Studio';
+            statusText.textContent = `${keyType} (${savedKey.slice(0, 6)}...)`;
             statusText.className = 'text-[11px] font-mono text-emerald-500 font-bold';
           } else {
             statusText.textContent = 'Belum diatur';
@@ -1243,7 +1231,7 @@
         }
       }
 
-      window.openSettingsModal = function () {
+      function openSettingsModal() {
         const modal = document.getElementById('settingsModal');
         const logoInput = document.getElementById('inputLogoUrl');
         const apiInput = document.getElementById('inputGeminiApiKey');
@@ -1263,30 +1251,28 @@
         if (eyeOpen) eyeOpen.style.display = 'block';
         if (eyeClosed) eyeClosed.style.display = 'none';
 
-        window.previewSettingsLogo(savedLogoUrl);
+        previewSettingsLogo(savedLogoUrl);
         refreshApiStatusIndicators();
-
-        // Gunakan explicit display: flex (tanpa class 'hidden' yang bentrok)
         modal.style.display = 'flex';
-      };
+      }
 
-      window.closeSettingsModal = function () {
+      function closeSettingsModal() {
         const modal = document.getElementById('settingsModal');
         if (modal) {
           modal.style.display = 'none';
         }
-      };
+      }
 
-      window.resetLogoToDefault = function () {
+      function resetLogoToDefault() {
         const logoInput = document.getElementById('inputLogoUrl');
         if (logoInput) {
           logoInput.value = '';
         }
-        window.previewSettingsLogo('');
-        showToast('Preview logo direset ke default. Klik Save untuk menyimpan.', 'info');
-      };
+        previewSettingsLogo('');
+        showToast('Preview logo direset ke default. Klik Simpan Pengaturan.', 'info');
+      }
 
-      window.toggleApiKeyVisibility = function () {
+      function toggleApiKeyVisibility() {
         const apiInput = document.getElementById('inputGeminiApiKey');
         const eyeOpen = document.getElementById('iconEyeOpen');
         const eyeClosed = document.getElementById('iconEyeClosed');
@@ -1301,9 +1287,9 @@
           if (eyeOpen) eyeOpen.style.display = 'block';
           if (eyeClosed) eyeClosed.style.display = 'none';
         }
-      };
+      }
 
-      window.saveSettings = function () {
+      function saveSettings() {
         const logoInput = document.getElementById('inputLogoUrl');
         const apiInput = document.getElementById('inputGeminiApiKey');
 
@@ -1323,14 +1309,14 @@
             localStorage.removeItem(STORAGE_KEYS.GEMINI_API_KEY);
           }
         } catch (err) {
-          // Handle storage quota edge case gracefully
+          // Abaikan jika storage penuh
         }
 
         applyHeaderLogoFromUrl(logoUrl);
         refreshApiStatusIndicators();
-        window.closeSettingsModal();
+        closeSettingsModal();
         showToast('Pengaturan berhasil disimpan!');
-      };
+      }
 
       function loadInitialSettings() {
         const savedLogoUrl = localStorage.getItem(STORAGE_KEYS.LOGO_URL) || '';
@@ -1342,7 +1328,7 @@
         if (apiInput) apiInput.value = savedApiKey;
 
         applyHeaderLogoFromUrl(savedLogoUrl);
-        window.previewSettingsLogo(savedLogoUrl);
+        previewSettingsLogo(savedLogoUrl);
         refreshApiStatusIndicators();
       }
 
@@ -1373,6 +1359,7 @@
         warung: {
           sizePreset: '400x100',
           aiPlatform: 'chatgpt',
+          brandName: 'WARUNG GEPREK JUARA',
           headline: 'AYAM GEPREK JUARA — PEDASNYA BIKIN NAGIH!',
           subheadline: 'Sambal Bawang Ulek Dadakan • Paket Hemat Mulai Rp 15.000',
           ctaBadge: 'GRATIS ES TEH MANIS!',
@@ -1390,6 +1377,7 @@
         sosmed: {
           sizePreset: '1:1',
           aiPlatform: 'gemini',
+          brandName: 'TECHSTORE INDONESIA',
           headline: 'MEGA FLASH SALE 50% OFF!',
           subheadline: 'Koleksi Gadget & Aksesoris Original Bergaransi Resmi',
           ctaBadge: 'BELI SEKARANG • STOK TERBATAS',
@@ -1407,6 +1395,7 @@
         webhero: {
           sizePreset: '16:9',
           aiPlatform: 'chatgpt',
+          brandName: 'NUSANTARA CLOUD',
           headline: 'SOLUSI DIGITAL TERPADU UNTUK BISNIS MODERN',
           subheadline: 'Otomatisasi Operasional, Analitik Real-Time & Skalabilitas Cloud Tanpa Batas',
           ctaBadge: 'COBA GRATIS 14 HARI',
@@ -1424,6 +1413,7 @@
         tiktok: {
           sizePreset: '9:16',
           aiPlatform: 'chatgpt',
+          brandName: 'AURA SKINCARE',
           headline: 'GLOWING INSTAN DALAM 7 HARI!',
           subheadline: 'Serum Niacinamide 10% + Hyaluronic Acid BPOM & Halal',
           ctaBadge: 'CHECKOUT KERANJANG KUNING!',
@@ -1441,6 +1431,7 @@
         xbanner: {
           sizePreset: '60x160',
           aiPlatform: 'ideogram',
+          brandName: 'DIGITAL SUMMIT 2026',
           headline: 'SEMINAR NASIONAL BISNIS DIGITAL & AI 2026',
           subheadline: 'Strategi Meningkatkan Omzet UMKM 5x Lipat dengan Kecerdasan Buatan',
           ctaBadge: 'DAFTAR SEKARANG — KUOTA TERBATAS!',
@@ -1463,6 +1454,7 @@
         customHeight: 150,
         customUnit: 'cm',
         aiPlatform: 'chatgpt',
+        brandName: 'WARUNG GEPREK JUARA',
         headline: 'AYAM GEPREK JUARA — PEDASNYA BIKIN NAGIH!',
         subheadline: 'Sambal Bawang Ulek Dadakan • Paket Hemat Mulai Rp 15.000',
         ctaBadge: 'GRATIS ES TEH MANIS!',
@@ -1485,14 +1477,14 @@
       // 5. DIMENSION & COLOR UTILITIES
       // =========================================================================
       function gcd(a, b) {
-        a = Math.abs(Math.round(a));
-        b = Math.abs(Math.round(b));
-        while (b) {
-          const t = b;
-          b = a % b;
-          a = t;
+        let x = Math.abs(Math.round(a));
+        let y = Math.abs(Math.round(b));
+        while (y) {
+          const t = y;
+          y = x % y;
+          x = t;
         }
-        return a || 1;
+        return x || 1;
       }
 
       function getDimensionInfo() {
@@ -1563,9 +1555,8 @@
             const dataUrl = evt.target.result;
             const img = new Image();
             img.onload = function () {
-              // Guess smart default category from filename
               const lower = file.name.toLowerCase();
-              let defaultRole = PHOTO_ROLES[0]; // Foto Produk Utama
+              let defaultRole = PHOTO_ROLES[0];
               if (lower.includes('logo') || lower.includes('icon') || lower.includes('brand')) {
                 defaultRole = PHOTO_ROLES[2];
               } else if (lower.includes('orang') || lower.includes('model') || lower.includes('person') || lower.includes('foto') || lower.includes('owner')) {
@@ -1600,7 +1591,7 @@
         });
       }
 
-      window.openPhotoLightbox = function (photoId) {
+      function openPhotoLightbox(photoId) {
         const idx = state.referencePhotos.findIndex((p) => p.id === photoId);
         if (idx === -1) return;
         const photo = state.referencePhotos[idx];
@@ -1614,7 +1605,7 @@
         document.getElementById('lightbox-dim').textContent = `${photo.width}×${photo.height} px`;
 
         modal.style.display = 'flex';
-      };
+      }
 
       function closeLightbox() {
         const modal = document.getElementById('imageLightboxModal');
@@ -1646,7 +1637,7 @@
 
             return `
               <div class="p-3 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex flex-col sm:flex-row gap-3 items-start">
-                <button type="button" onclick="window.openPhotoLightbox('${photo.id}')" title="Klik untuk memperbesar" class="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-300 dark:border-[#263044] shrink-0 group cursor-pointer bg-black/20">
+                <button type="button" data-zoom-photo="${photo.id}" title="Klik untuk memperbesar" class="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-300 dark:border-[#263044] shrink-0 group cursor-pointer bg-black/20">
                   <img src="${photo.dataUrl}" alt="${escapeHtml(photo.name)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                   <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded bg-black/75 text-brand-400 font-mono text-[10px] font-bold">#${index + 1}</span>
                 </button>
@@ -1676,7 +1667,10 @@
           })
           .join('');
 
-        // Bind events on dynamically rendered photo cards
+        listEl.querySelectorAll('[data-zoom-photo]').forEach((btn) => {
+          btn.addEventListener('click', () => openPhotoLightbox(btn.getAttribute('data-zoom-photo')));
+        });
+
         listEl.querySelectorAll('[data-remove-photo]').forEach((btn) => {
           btn.addEventListener('click', () => {
             const id = btn.getAttribute('data-remove-photo');
@@ -1733,7 +1727,7 @@
           .map(
             (photo, idx) => `
               <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#1a2132] border border-slate-200 dark:border-[#263044] flex items-center gap-2.5">
-                <button type="button" onclick="window.openPhotoLightbox('${photo.id}')" class="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-slate-300 dark:border-[#263044] cursor-pointer">
+                <button type="button" data-zoom-attached="${photo.id}" class="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-slate-300 dark:border-[#263044] cursor-pointer">
                   <img src="${photo.dataUrl}" alt="${escapeHtml(photo.name)}" class="w-full h-full object-cover" />
                   <span class="absolute bottom-0 inset-x-0 bg-black/75 text-brand-400 font-mono text-[9px] font-bold text-center">#${idx + 1}</span>
                 </button>
@@ -1751,6 +1745,10 @@
             `
           )
           .join('');
+
+        grid.querySelectorAll('[data-zoom-attached]').forEach((btn) => {
+          btn.addEventListener('click', () => openPhotoLightbox(btn.getAttribute('data-zoom-attached')));
+        });
       }
 
       // =========================================================================
@@ -1770,7 +1768,6 @@
         sketchBadge.style.display = state.sketchMode ? 'inline-block' : 'none';
         layoutLabel.textContent = `Layout: ${state.layout}`;
 
-        // Set dynamic aspect-ratio and background
         const parts = dimInfo.arCss.split('/').map((n) => parseFloat(n.trim()) || 1);
         const numericRatio = parts[0] / parts[1];
         canvas.style.aspectRatio = dimInfo.arCss;
@@ -1806,21 +1803,24 @@
               [ZONA OBJEK HERO]
             </div>`;
 
+        const brandTagText = escapeHtml((state.brandName || 'BRAND').slice(0, 22));
         const logoCornerHtml = logoPhoto
-          ? `<img src="${logoPhoto.dataUrl}" alt="Logo" class="h-6 w-auto rounded bg-white/90 p-0.5 object-contain shadow" />`
-          : `<span class="px-1.5 py-0.5 rounded bg-black/35 text-[9px] font-mono uppercase tracking-wider border border-white/20">LOGO</span>`;
+          ? `<div class="flex items-center gap-1.5">
+              <img src="${logoPhoto.dataUrl}" alt="Logo" class="h-6 w-auto rounded bg-white/90 p-0.5 object-contain shadow" />
+              <span class="text-[9px] font-bold uppercase tracking-wider text-white/90 truncate max-w-[90px]">${brandTagText}</span>
+            </div>`
+          : `<span class="px-1.5 py-0.5 rounded bg-black/35 text-[9px] font-mono uppercase tracking-wider border border-white/20 truncate max-w-[130px]">${brandTagText}</span>`;
 
         const headlineShort = escapeHtml((state.headline || 'HEADLINE UTAMA').slice(0, 44));
         const subShort = escapeHtml((state.subheadline || 'Sub-headline').slice(0, 48));
         const ctaShort = escapeHtml((state.ctaBadge || 'PROMO').slice(0, 26));
         const contactShort = escapeHtml((state.contactInfo || '').slice(0, 45));
-
         const isVertical = numericRatio < 1;
 
         canvas.innerHTML = `
           <div class="flex items-center justify-between gap-2 z-10">
             ${logoCornerHtml}
-            <span style="background-color: ${state.colorAccent}; color: #09090b;" class="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wide shadow">
+            <span style="background-color: ${state.colorAccent}; color: #09090b;" class="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wide shadow shrink-0">
               ${ctaShort}
             </span>
           </div>
@@ -1871,7 +1871,7 @@
         } else if (state.aiPlatform === 'ideogram') {
           platformDirective = 'Optimized for Ideogram 2.0: Graphic poster & banner typography precision, clean vector accents, zero spelling errors.';
         } else if (state.aiPlatform === 'midjourney') {
-          platformDirective = `Optimized for Midjourney v6: Ultra-detailed commercial advertising layout, high-impact visual hierarchy.`;
+          platformDirective = 'Optimized for Midjourney v6: Ultra-detailed commercial advertising layout, high-impact visual hierarchy.';
         }
 
         let refBlock = '';
@@ -1883,12 +1883,12 @@
         }
 
         const sketchBlock = state.sketchMode
-          ? `\n\nSKETCH-TO-BANNER TRANSFORMATION MODE ACTIVE: Transform the attached rough hand-drawn wireframe/sketch layout into a polished, print-ready commercial banner while preserving the exact structural placement of text zones and hero elements.`
+          ? '\n\nSKETCH-TO-BANNER TRANSFORMATION MODE ACTIVE: Transform the attached rough hand-drawn wireframe/sketch layout into a polished, print-ready commercial banner while preserving the exact structural placement of text zones and hero elements.'
           : '';
 
         const mjSuffix = state.aiPlatform === 'midjourney' ? `\n\n--ar ${dimInfo.mjAr} --v 6.0 --style raw` : '';
 
-        return `Create a professional, high-converting commercial banner graphic design (${dimInfo.label}, dimensions ${dimInfo.dim}, aspect ratio ${dimInfo.ratio}).
+        return `Create a professional, high-converting commercial banner graphic design (${dimInfo.label}, dimensions ${dimInfo.dim}, aspect ratio ${dimInfo.ratio}) for brand "${state.brandName}".
 
 ${platformDirective}
 
@@ -1907,10 +1907,11 @@ COLOR PALETTE:
 - Base Background Color: ${cBgDesc}
 
 EXACT TEXT CONTENT TO RENDER (NO TYPOS):
-1. Main Headline (Largest, bold focal point): "${state.headline}"
-2. Sub-Headline / Tagline: "${state.subheadline}"
-3. Promo Badge / Call-To-Action: "${state.ctaBadge}"
-4. Footer Contact / Location / Social Media: "${state.contactInfo}"${refBlock}${sketchBlock}${mjSuffix}`;
+1. Brand Header / Identity: "${state.brandName}"
+2. Main Headline (Largest, bold focal point): "${state.headline}"
+3. Sub-Headline / Tagline: "${state.subheadline}"
+4. Promo Badge / Call-To-Action: "${state.ctaBadge}"
+5. Footer Contact / Location / Social Media: "${state.contactInfo}"${refBlock}${sketchBlock}${mjSuffix}`;
       }
 
       function buildPromptID() {
@@ -1924,10 +1925,10 @@ EXACT TEXT CONTENT TO RENDER (NO TYPOS):
         }
 
         const sketchText = state.sketchMode
-          ? `\n\nMODE CORETAN (SKETCH-TO-BANNER): Ubah sketsa/wireframe kasar yang dilampirkan menjadi desain banner komersial final siap cetak dengan tetap mempertahankan posisi tata letak elemen.`
+          ? '\n\nMODE CORETAN (SKETCH-TO-BANNER): Ubah sketsa/wireframe kasar yang dilampirkan menjadi desain banner komersial final siap cetak dengan tetap mempertahankan posisi tata letak elemen.'
           : '';
 
-        return `Buatkan desain grafis banner komersial profesional berkualitas tinggi untuk media ${dimInfo.label} (Ukuran: ${dimInfo.dim}, Rasio Aspek: ${dimInfo.ratio}).
+        return `Buatkan desain grafis banner komersial profesional berkualitas tinggi untuk brand "${state.brandName}" pada media ${dimInfo.label} (Ukuran: ${dimInfo.dim}, Rasio Aspek: ${dimInfo.ratio}).
 
 ARAHAN GAYA & TATA LETAK:
 - Gaya Desain: ${state.designStyle}
@@ -1944,16 +1945,17 @@ PALET WARNA:
 - Warna Latar Belakang: ${state.colorBg.toUpperCase()} (${describeHexColor(state.colorBg)})
 
 TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
-1. Headline Utama (Paling besar & mencolok): "${state.headline}"
-2. Sub-Headline / Tagline: "${state.subheadline}"
-3. Detail Promo / Badge CTA: "${state.ctaBadge}"
-4. Info Kontak / Alamat / Sosmed: "${state.contactInfo}"${refBlock}${sketchText}`;
+1. Nama Brand / Penyelenggara: "${state.brandName}"
+2. Headline Utama (Paling besar & mencolok): "${state.headline}"
+3. Sub-Headline / Tagline: "${state.subheadline}"
+4. Badge Promo / Harga / CTA: "${state.ctaBadge}"
+5. Info Kontak / Alamat / Sosmed: "${state.contactInfo}"${refBlock}${sketchText}`;
       }
 
       function buildPromptJSON() {
         const dimInfo = getDimensionInfo();
         const obj = {
-          project: 'Prompt Studio — BANNER PRO',
+          project: 'Prompt Studio — BANNER PRO (DESIGN BY MAHE)',
           target_ai_platform: state.aiPlatform,
           media_specification: {
             preset: dimInfo.label,
@@ -1974,6 +1976,7 @@ TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
           },
           hero_subject_description: state.visualObject,
           text_hierarchy: {
+            brand_name: state.brandName,
             headline: state.headline,
             subheadline: state.subheadline,
             promo_cta_badge: state.ctaBadge,
@@ -2015,105 +2018,86 @@ TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
       }
 
       // =========================================================================
-      // 9. GEMINI API INTEGRATION (USING API KEY FROM SETTINGS)
+      // 9. GEMINI API INTEGRATION (DUAL ENDPOINT: AQ. VERTEX AI & AIza AI STUDIO)
       // =========================================================================
-      async function callGeminiAPI(userPrompt, systemPrompt = "", expectJson = false) {
-  const apiKey = (localStorage.getItem("prompt_studio_gemini_api_key") || "").trim();
+      async function callGeminiAPI(userPrompt, systemPrompt, expectJson) {
+        const apiKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
+        if (!apiKey) {
+          throw new Error('API Key belum diisi di Pengaturan.');
+        }
 
-  if (!apiKey) {
-    throw new Error("API Key belum diisi di menu Pengaturan.");
-  }
+        const isVertexKey = apiKey.startsWith('AQ.');
+        const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+        let lastError = 'Gagal terhubung ke server Gemini.';
 
-  // Deteksi otomatis: apakah key menggunakan Vertex AI (AQ.) atau AI Studio (AIza...)
-  const isVertexKey = apiKey.startsWith("AQ.");
-  const models = ["gemini-2.5-flash", "gemini-2.0-flash"];
-  let lastError = "Gagal terhubung ke server Gemini.";
+        const combinedText = systemPrompt
+          ? `${systemPrompt}\n\nPermintaan Pengguna:\n${userPrompt}`
+          : userPrompt;
 
-  for (const model of models) {
-    try {
-      // Pilih alamat server (endpoint) sesuai jenis API Key
-      const endpoint = isVertexKey
-        ? `https://aiplatform.googleapis.com/v1/publishers/google/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`
-        : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        for (let i = 0; i < models.length; i++) {
+          const model = models[i];
+          try {
+            const endpoint = isVertexKey
+              ? `https://aiplatform.googleapis.com/v1/publishers/google/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`
+              : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
-      const payload = {
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text: systemPrompt
-                  ? `${systemPrompt}\n\nPermintaan Pengguna:\n${userPrompt}`
-                  : userPrompt
+            const payload = {
+              contents: [
+                {
+                  role: 'user',
+                  parts: [{ text: combinedText }]
+                }
+              ],
+              generationConfig: {
+                temperature: 0.7
               }
-            ]
+            };
+
+            if (expectJson && !isVertexKey) {
+              payload.generationConfig.responseMimeType = 'application/json';
+            }
+
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+              const apiMsg = (data && data.error && data.error.message) ? data.error.message : `HTTP ${response.status}`;
+              lastError = apiMsg;
+              if (apiMsg.toLowerCase().includes('api key not valid') || apiMsg.toLowerCase().includes('api_key_invalid')) {
+                throw new Error('API Key tidak valid. Periksa kembali key di Pengaturan.');
+              }
+              continue;
+            }
+
+            let resultText = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) || '';
+            if (!resultText) {
+              lastError = 'Respons Gemini kosong.';
+              continue;
+            }
+
+            if (expectJson) {
+              resultText = resultText
+                .replace(/^```json\s*/i, '')
+                .replace(/^```\s*/i, '')
+                .replace(/```\s*$/i, '')
+                .trim();
+            }
+
+            return resultText;
+          } catch (err) {
+            lastError = (err && err.message) ? err.message : lastError;
+            if (lastError.includes('API Key tidak valid')) {
+              throw err;
+            }
           }
-        ],
-        generationConfig: {
-          temperature: 0.7
-        }
-      };
-
-      if (expectJson) {
-        payload.generationConfig.responseMimeType = "application/json";
-      }
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        lastError = data?.error?.message || `Error HTTP ${response.status}`;
-        continue;
-      }
-
-      let resultText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      if (!resultText) {
-        lastError = "Respons AI kosong.";
-        continue;
-      }
-
-      if (expectJson) {
-        resultText = resultText
-          .replace(/^```json\s*/i, "")
-          .replace(/^```\s*/i, "")
-          .replace(/```\s*$/i, "")
-          .trim();
-      }
-
-      return resultText;
-    } catch (err) {
-      lastError = err.message || lastError;
-    }
-  }
-
-  throw new Error(lastError);
-}
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
-        const body = {
-          contents: [{ parts: [{ text: promptText }] }]
-        };
-        if (expectJson) {
-          body.generationConfig = { responseMimeType: 'application/json' };
         }
 
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        throw new Error(lastError);
       }
 
       async function handleSmartBrief() {
@@ -2131,7 +2115,6 @@ TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
         btnText.textContent = 'Memproses Brief...';
 
         if (!savedKey) {
-          // Smart local fallback + info arahkan ke Pengaturan
           applyLocalSmartBriefParser(brief);
           btnText.textContent = 'Auto-Isi dari Brief';
           showToast('Form diisi otomatis! Masukkan API Key Gemini di Pengaturan untuk hasil AI lebih cerdas.', 'info');
@@ -2139,28 +2122,29 @@ TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
         }
 
         try {
-          const instruction = `Kamu adalah direktur kreatif desain banner & spanduk komersial Indonesia. Ubah brief singkat berikut menjadi konfigurasi JSON dengan properti persis:
+          const systemInstruction = `Kamu adalah direktur kreatif desain banner & spanduk komersial Indonesia. Ubah brief singkat menjadi objek JSON murni (tanpa teks pembuka/penutup) dengan properti:
 {
-  "sizePreset": pilih salah satu dari ["400x100","400x50","300x100","60x160","300x400","1:1","16:9","9:16"],
-  "headline": "judul singkat super menarik HURUF KAPITAL",
+  "sizePreset": pilih satu dari ["400x100","400x50","300x100","60x160","300x400","1:1","16:9","9:16"],
+  "brandName": "NAMA BRAND / TOKO KAPITAL",
+  "headline": "JUDUL UTAMA SINGKAT & MENJUAL KAPITAL",
   "subheadline": "sub-headline pendukung",
   "ctaBadge": "teks badge promo / CTA singkat",
   "contactInfo": "contoh info kontak / akun sosmed",
-  "designStyle": pilih salah satu dari ["Bold Kuliner Menggugah Selera","Modern Minimalis Korporat","Festive Promo & Diskon Retail","Elegan Mewah & Eksklusif","Enerjik Sport & Event","Islami / Religi & Komunitas","3D Render & Futuristik","Ilustrasi Vektor Flat & Playful"],
-  "typographyStyle": pilih salah satu dari ["Bold Impact Sans-Serif","Modern Geometric Clean","Elegant Luxury Serif","Handwritten / Brush Script","3D Extruded & Metallic Promo","Playful Rounded Display"],
-  "layout": pilih salah satu dari ["Panoramic Strip Spanduk","Split Kiri-Kanan","Center Hero Focus","Top-to-Bottom X-Banner","Grid Katalog Multi-Produk","Asymmetric Dynamic Diagonal"],
+  "designStyle": pilih satu dari ["Bold Kuliner Menggugah Selera","Modern Minimalis Korporat","Festive Promo & Diskon Retail","Elegan Mewah & Eksklusif","Enerjik Sport & Event","Islami / Religi & Komunitas","3D Render & Futuristik","Ilustrasi Vektor Flat & Playful"],
+  "typographyStyle": pilih satu dari ["Bold Impact Sans-Serif","Modern Geometric Clean","Elegant Luxury Serif","Handwritten / Brush Script","3D Extruded & Metallic Promo","Playful Rounded Display"],
+  "layout": pilih satu dari ["Panoramic Strip Spanduk","Split Kiri-Kanan","Center Hero Focus","Top-to-Bottom X-Banner","Grid Katalog Multi-Produk","Asymmetric Dynamic Diagonal"],
   "colorPrimary": "#hex",
   "colorAccent": "#hex",
   "colorBg": "#hex",
   "visualObject": "deskripsi objek visual hero detail dalam Bahasa Indonesia",
-  "lightingMood": pilih salah satu dari ["Studio Komersial Terang & Tajam","Dramatis Rim Light & Kontras Tinggi","Hangat Golden Hour & Menggugah Selera","Neon Nightlife & Sorot Panggung","Soft Daylight Bersih & Natural"]
-}
-Brief user: "${brief}"`;
+  "lightingMood": pilih satu dari ["Studio Komersial Terang & Tajam","Dramatis Rim Light & Kontras Tinggi","Hangat Golden Hour & Menggugah Selera","Neon Nightlife & Sorot Panggung","Soft Daylight Bersih & Natural"]
+}`;
 
-          const rawJson = await callGeminiAPI(instruction, true);
+          const rawJson = await callGeminiAPI(brief, systemInstruction, true);
           const parsed = JSON.parse(rawJson);
 
           if (parsed.sizePreset && SIZE_PRESETS[parsed.sizePreset]) state.sizePreset = parsed.sizePreset;
+          if (parsed.brandName) state.brandName = parsed.brandName;
           if (parsed.headline) state.headline = parsed.headline;
           if (parsed.subheadline) state.subheadline = parsed.subheadline;
           if (parsed.ctaBadge) state.ctaBadge = parsed.ctaBadge;
@@ -2179,7 +2163,7 @@ Brief user: "${brief}"`;
           showToast('AI Smart Brief berhasil melengkapi seluruh konfigurasi!');
         } catch (err) {
           applyLocalSmartBriefParser(brief);
-          showToast('Gagal menghubungi Gemini API (cek API Key di Pengaturan). Menggunakan parser lokal.', 'error');
+          showToast(`Gemini API: ${err.message} (Menggunakan parser lokal).`, 'error');
         } finally {
           btnText.textContent = 'Auto-Isi dari Brief';
         }
@@ -2241,18 +2225,15 @@ Brief user: "${brief}"`;
           showToast('Menampilkan ide cepat. Isi API Key Gemini di Pengaturan untuk rekomendasi AI kustom.', 'info');
         } else {
           try {
-            const prompt = `Buatkan 3 variasi Headline utama banner/spanduk Bahasa Indonesia yang sangat menjual, singkat, dan mencolok (HURUF KAPITAL) berdasarkan konteks:
-- Headline saat ini: "${state.headline}"
-- Sub-headline: "${state.subheadline}"
-- Objek visual: "${state.visualObject}"
-Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
-            const raw = await callGeminiAPI(prompt, true);
+            const sys = 'Buatkan 3 variasi Headline utama banner/spanduk Bahasa Indonesia yang sangat menjual, singkat, dan mencolok (HURUF KAPITAL). Kembalikan HANYA array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].';
+            const usr = `Brand: "${state.brandName}" | Headline saat ini: "${state.headline}" | Sub-headline: "${state.subheadline}" | Objek: "${state.visualObject}"`;
+            const raw = await callGeminiAPI(usr, sys, true);
             const parsed = JSON.parse(raw);
             if (Array.isArray(parsed) && parsed.length) {
               ideas = parsed.slice(0, 4);
             }
           } catch (err) {
-            showToast('Gagal memuat Ide Headline dari Gemini API. Periksa API Key di Pengaturan.', 'error');
+            showToast(`Gagal memuat Ide Headline: ${err.message}`, 'error');
             btnText.textContent = 'Ide Headline AI';
             return;
           }
@@ -2300,9 +2281,8 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
         }
 
         try {
-          const instruction = `You are a senior commercial advertising art director and prompt engineer. Refine and elevate the following AI image generation prompt so that it produces an extraordinary, print-ready commercial banner. Keep all Indonesian text strings inside quotes 100% intact and exact, preserve aspect ratio parameters and attached reference image mappings, and enrich lighting, material textures, composition, and typography instructions. Return ONLY the polished prompt text in English without markdown fences:\n\n${currentEnPrompt}`;
-
-          const polished = await callGeminiAPI(instruction, false);
+          const sys = 'You are a senior commercial advertising art director and prompt engineer. Refine and elevate the following AI image generation prompt so that it produces an extraordinary, print-ready commercial banner. Keep all Indonesian text strings inside quotes 100% intact and exact, preserve aspect ratio parameters and attached reference image mappings, and enrich lighting, material textures, composition, and typography instructions. Return ONLY the polished prompt text in English without markdown fences.';
+          const polished = await callGeminiAPI(currentEnPrompt, sys, false);
           if (polished && polished.trim()) {
             state.polishedText = polished.trim();
             state.activeTab = 'en';
@@ -2311,7 +2291,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
             showToast('Prompt berhasil dipoles dengan Gemini AI!');
           }
         } catch (err) {
-          showToast('Gagal memoles dengan Gemini API. Periksa API Key di Pengaturan.', 'error');
+          showToast(`Gagal memoles prompt: ${err.message}`, 'error');
         } finally {
           btnText.textContent = 'Poles AI';
         }
@@ -2323,7 +2303,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
       function getSavedHistory() {
         try {
           return JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY)) || [];
-        } catch {
+        } catch (e) {
           return [];
         }
       }
@@ -2345,6 +2325,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
             customHeight: state.customHeight,
             customUnit: state.customUnit,
             aiPlatform: state.aiPlatform,
+            brandName: state.brandName,
             headline: state.headline,
             subheadline: state.subheadline,
             ctaBadge: state.ctaBadge,
@@ -2364,8 +2345,8 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
         items.unshift(entry);
         try {
           localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(items.slice(0, 30)));
-        } catch {
-          // Ignore quota errors
+        } catch (e) {
+          // Abaikan quota error
         }
         renderHistoryList();
         showToast('Konfigurasi & prompt disimpan ke Riwayat!');
@@ -2389,7 +2370,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
                 </svg>
               </div>
               <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Belum ada riwayat tersimpan</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Klik tombol "Simpan Riwayat" pada panel hasil prompt untuk menyimpannya di sini.</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Klik tombol "Simpan ke Riwayat" pada panel hasil prompt untuk menyimpannya di sini.</p>
             </div>
           `;
           return;
@@ -2483,7 +2464,6 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
         document.getElementById('header-ratio-pill').textContent = `${dimInfo.ratio} (${dimInfo.dim})`;
         document.getElementById('custom-ratio-display').textContent = dimInfo.ratio;
 
-        // Platform Cards
         document.querySelectorAll('.ai-platform-card').forEach((card) => {
           const isSelected = card.getAttribute('data-ai-platform') === state.aiPlatform;
           const dot = card.querySelector('.indicator');
@@ -2496,7 +2476,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           }
         });
 
-        // Content Inputs
+        document.getElementById('brand-name-input').value = state.brandName;
         document.getElementById('headline-input').value = state.headline;
         document.getElementById('subheadline-input').value = state.subheadline;
         document.getElementById('cta-badge-input').value = state.ctaBadge;
@@ -2507,7 +2487,6 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
         document.getElementById('lighting-mood').value = state.lightingMood;
         document.getElementById('sketch-mode-toggle').checked = Boolean(state.sketchMode);
 
-        // Layout Cards
         document.querySelectorAll('.layout-card').forEach((card) => {
           const isSelected = card.getAttribute('data-layout') === state.layout;
           if (isSelected) {
@@ -2517,7 +2496,6 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           }
         });
 
-        // Colors
         document.getElementById('color-primary').value = state.colorPrimary;
         document.getElementById('color-primary-hex').value = state.colorPrimary.toUpperCase();
         document.getElementById('color-primary-name').textContent = describeHexColor(state.colorPrimary);
@@ -2554,23 +2532,23 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
       }
 
       function bindAllEvents() {
-        // 1) Header Buttons (Pengaturan, Riwayat, Theme)
-        const btnOpenSettings = document.getElementById('btnOpenSettings');
-        if (btnOpenSettings) {
-          btnOpenSettings.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.openSettingsModal();
-          });
-        }
+        // 1) Settings Modal Events
+        document.getElementById('btnOpenSettings').addEventListener('click', openSettingsModal);
+        document.getElementById('btnCloseSettingsX').addEventListener('click', closeSettingsModal);
+        document.getElementById('btnCancelSettings').addEventListener('click', closeSettingsModal);
+        document.getElementById('settingsModalBackdrop').addEventListener('click', closeSettingsModal);
+        document.getElementById('btnResetLogoDefault').addEventListener('click', resetLogoToDefault);
+        document.getElementById('btnToggleApiKeyVis').addEventListener('click', toggleApiKeyVisibility);
+        document.getElementById('btnSaveSettings').addEventListener('click', saveSettings);
+        document.getElementById('inputLogoUrl').addEventListener('input', (e) => {
+          previewSettingsLogo(e.target.value);
+        });
 
-        const btnOpenHistory = document.getElementById('btnOpenHistory');
-        if (btnOpenHistory) {
-          btnOpenHistory.addEventListener('click', () => {
-            renderHistoryList();
-            document.getElementById('historyDrawer').style.display = 'block';
-          });
-        }
-
+        // 2) History Drawer & Theme Toggle
+        document.getElementById('btnOpenHistory').addEventListener('click', () => {
+          renderHistoryList();
+          document.getElementById('historyDrawer').style.display = 'block';
+        });
         document.getElementById('close-history-btn').addEventListener('click', () => {
           document.getElementById('historyDrawer').style.display = 'none';
         });
@@ -2603,16 +2581,15 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           localStorage.setItem(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
         });
 
-        // Escape Key closes Modals & Drawers
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
-            window.closeSettingsModal();
+            closeSettingsModal();
             closeLightbox();
             document.getElementById('historyDrawer').style.display = 'none';
           }
         });
 
-        // 2) Quick Presets Bar
+        // 3) Quick Presets Bar
         document.querySelectorAll('.quick-preset-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             const key = btn.getAttribute('data-quick-preset');
@@ -2625,7 +2602,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        // 3) AI Smart Brief
+        // 4) AI Smart Brief
         document.getElementById('smart-brief-btn').addEventListener('click', handleSmartBrief);
         document.getElementById('smart-brief-input').addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
@@ -2640,7 +2617,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        // 4) Card 01: Size & AI Platform
+        // 5) Card 01: Size & AI Platform
         document.getElementById('size-preset').addEventListener('change', (e) => {
           state.sizePreset = e.target.value;
           document.getElementById('custom-size-panel').style.display = state.sizePreset === 'custom' ? 'block' : 'none';
@@ -2666,13 +2643,14 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        // 5) Card 02: Content Hierarchy & Headline AI
+        // 6) Card 02: Content Hierarchy, Headline AI & Sketch Mode
         document.getElementById('ai-headline-btn').addEventListener('click', handleGenerateHeadlines);
         document.getElementById('close-headline-suggestions').addEventListener('click', () => {
           document.getElementById('headline-suggestions-box').style.display = 'none';
         });
 
         const textBindings = [
+          ['brand-name-input', 'brandName'],
           ['headline-input', 'headline'],
           ['subheadline-input', 'subheadline'],
           ['cta-badge-input', 'ctaBadge'],
@@ -2688,7 +2666,14 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        // 6) Card 03: Style, Typography, Multi-Upload Photos & Layout
+        document.getElementById('sketch-mode-toggle').addEventListener('change', (e) => {
+          state.sketchMode = e.target.checked;
+          state.polishedText = null;
+          renderWireframe();
+          renderPromptOutput();
+        });
+
+        // 7) Card 03: Style, Typography, Lighting, Multi-Upload Photos, Layout & Colors
         document.getElementById('design-style').addEventListener('change', (e) => {
           state.designStyle = e.target.value;
           state.polishedText = null;
@@ -2697,6 +2682,12 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
 
         document.getElementById('typography-style').addEventListener('change', (e) => {
           state.typographyStyle = e.target.value;
+          state.polishedText = null;
+          renderPromptOutput();
+        });
+
+        document.getElementById('lighting-mood').addEventListener('change', (e) => {
+          state.lightingMood = e.target.value;
           state.polishedText = null;
           renderPromptOutput();
         });
@@ -2750,7 +2741,6 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        // 7) Card 04: Colors, Lighting & Sketch Mode
         document.querySelectorAll('.palette-preset-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             const [p, a, b] = btn.getAttribute('data-palette').split(',');
@@ -2796,19 +2786,6 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           });
         });
 
-        document.getElementById('lighting-mood').addEventListener('change', (e) => {
-          state.lightingMood = e.target.value;
-          state.polishedText = null;
-          renderPromptOutput();
-        });
-
-        document.getElementById('sketch-mode-toggle').addEventListener('change', (e) => {
-          state.sketchMode = e.target.checked;
-          state.polishedText = null;
-          renderWireframe();
-          renderPromptOutput();
-        });
-
         // 8) Right Panel: Tabs & Action Buttons
         document.querySelectorAll('.output-tab-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
@@ -2831,7 +2808,7 @@ Kembalikan hanya array JSON berisi 3 string: ["IDE 1", "IDE 2", "IDE 3"].`;
           btnText.textContent = 'Tersalin!';
           showToast('Prompt berhasil disalin ke clipboard!');
           setTimeout(() => {
-            btnText.textContent = 'Salin';
+            btnText.textContent = 'Salin Prompt';
           }, 1800);
         });
 
