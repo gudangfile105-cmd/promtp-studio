@@ -2017,11 +2017,82 @@ TEKS WAJIB DI DALAM BANNER (EJAAN PRESISI):
       // =========================================================================
       // 9. GEMINI API INTEGRATION (USING API KEY FROM SETTINGS)
       // =========================================================================
-      async function callGeminiAPI(promptText, expectJson = false) {
-        const apiKey = (localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY) || '').trim();
-        if (!apiKey) {
-          return null;
+      async function callGeminiAPI(userPrompt, systemPrompt = "", expectJson = false) {
+  const apiKey = (localStorage.getItem("prompt_studio_gemini_api_key") || "").trim();
+
+  if (!apiKey) {
+    throw new Error("API Key belum diisi di menu Pengaturan.");
+  }
+
+  // Deteksi otomatis: apakah key menggunakan Vertex AI (AQ.) atau AI Studio (AIza...)
+  const isVertexKey = apiKey.startsWith("AQ.");
+  const models = ["gemini-2.5-flash", "gemini-2.0-flash"];
+  let lastError = "Gagal terhubung ke server Gemini.";
+
+  for (const model of models) {
+    try {
+      // Pilih alamat server (endpoint) sesuai jenis API Key
+      const endpoint = isVertexKey
+        ? `https://aiplatform.googleapis.com/v1/publishers/google/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`
+        : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+      const payload = {
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: systemPrompt
+                  ? `${systemPrompt}\n\nPermintaan Pengguna:\n${userPrompt}`
+                  : userPrompt
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7
         }
+      };
+
+      if (expectJson) {
+        payload.generationConfig.responseMimeType = "application/json";
+      }
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        lastError = data?.error?.message || `Error HTTP ${response.status}`;
+        continue;
+      }
+
+      let resultText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      if (!resultText) {
+        lastError = "Respons AI kosong.";
+        continue;
+      }
+
+      if (expectJson) {
+        resultText = resultText
+          .replace(/^```json\s*/i, "")
+          .replace(/^```\s*/i, "")
+          .replace(/```\s*$/i, "")
+          .trim();
+      }
+
+      return resultText;
+    } catch (err) {
+      lastError = err.message || lastError;
+    }
+  }
+
+  throw new Error(lastError);
+}
 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
         const body = {
